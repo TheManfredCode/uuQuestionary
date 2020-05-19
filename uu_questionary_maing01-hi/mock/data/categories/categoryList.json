@@ -1,0 +1,63 @@
+{
+    "itemList": [
+        {
+            "name": "simple question",
+            "questions": [
+                {
+                    "name": "what's your favourite colour?",
+                    "answer": [
+                        "red",
+                        "blue",
+                        "black"
+                    ]
+                },
+                {
+                    "name": "what's your favourite food?",
+                    "answer": [
+                        "barabolya",
+                        "pizza",
+                        "pierog",
+                        "carbonara"
+                    ]
+                },
+                {
+                    "name": "have you a hobby?",
+                    "answer": [
+                        "yes",
+                        "no"
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "work conditions review",
+            "questions": [
+                {
+                    "name": "Do you like our office interier?",
+                    "answer": [
+                        "yes",
+                        "no"
+                    ]
+                },
+                {
+                    "name": "What would you like to see in our office?",
+                    "answer": [
+                        "cats",
+                        "dogs",
+                        "playstation",
+                        "plants",
+                        "panoramic window"
+                    ]
+                },
+                {
+                    "name": "What salary do you want?",
+                    "answer": [
+                        "1000$",
+                        "1300$",
+                        "5000$"
+                    ]
+                }
+            ]
+        }
+    ]    
+}
