@@ -23,6 +23,12 @@ let Calls = {
       Calls.call("get", commandUri, { data: dtoInData, done: resolve, fail: reject });
     });
   },
+  getQuestionary(dtoInData) {
+    return new Promise((resolve, reject) => {
+      let commandUri = Calls.getCommandUri("questionary/questionaryList");
+      Calls.call("get", commandUri, { data: dtoInData, done: resolve, fail: reject });
+    });
+  },
 
   /*
   For calling command on specific server, in case of developing client site with already deployed

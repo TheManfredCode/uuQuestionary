@@ -1,0 +1,38 @@
+{
+    "itemList": [
+        {
+            "name": "simple questions",
+            "questions": [
+                {
+                    "name": "question 1",
+                    "answers": [
+                        "answer 1",
+                        "answer 2",
+                        "answer 3"
+                    ]
+                },
+                {
+                    "name": "Is earth round?",
+                    "answers":[
+                        "Yes",
+                        "No",
+                        "What?? I'm from Mars))"
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "hard questions))",
+            "questions": [
+                {
+                    "name": "whoau???!",
+                    "answers": [
+                        "zelenskiy)))",
+                        "neznay",
+                        "programmer",
+                        "Japan warrior"
+                    ]
+                }
+            ]
+        }]
+}

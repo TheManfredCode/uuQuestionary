@@ -4,7 +4,7 @@ import "uu5g04-bricks";
 import "uu5tilesg01";
 import Config from "./config/config.js";
 import Calls from "calls";
-import Category from "../core/category-list.js";
+import Category from "../categories/category.js";
 
 //@@viewOff:imports
 
@@ -41,15 +41,6 @@ export const Categories = UU5.Common.VisualComponent.create({
   _loadCategoryList(dtoIn){
     return Calls.categoriesList(dtoIn);
   },
-  _handleCreate(){
-    //Calls.categoryCreate
-  },
-  _handleDelete(){
-    //Calls.categoryDelete
-  },
-  _handleUpdate(){
-    //Calls.categoryUpdate
-  },
   //@@viewOff:private
 
   //@@viewOn:render
@@ -57,11 +48,8 @@ export const Categories = UU5.Common.VisualComponent.create({
     return <UU5.Bricks.Div {...this.getMainPropsToPass()}>
       <UU5.Common.ListDataManager
         onLoad={this._loadCategoryList}
-        onCreate={this._handleCreate}
-        onDelete={this._handleDelete}
-        onUpdate={this._handleUpdate}
       >
-        {({ data: listData, handleCreate, handleDelete, handleUpdate }) => {
+        {({ data: listData}) => {
           if (listData) {
             return (
               <UU5.Common.Fragment>

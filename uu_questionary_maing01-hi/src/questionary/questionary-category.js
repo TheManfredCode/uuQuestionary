@@ -3,18 +3,17 @@ import * as UU5 from "uu5g04";
 import "uu5g04-bricks";
 import "uu5tilesg01";
 import Config from "./config/config.js";
-import Calls from "calls";
-import Question from "./question.js";
+import QuestionaryQuestion from "./questionary-question.js";
 //@@viewOff:imports
 
-export const CategoryList = UU5.Common.VisualComponent.create({
+export const QuestionaryCategory = UU5.Common.VisualComponent.create({
   //@@viewOn:mixins
   mixins: [UU5.Common.BaseMixin, UU5.Common.RouteMixin],
   //@@viewOff:mixins
 
   //@@viewOn:statics
   statics: {
-    tagName: Config.TAG + "CategoryList",
+    tagName: Config.TAG + "QuestionaryCategory",
     classNames: {
       main: (props, state) => Config.Css.css``
     }
@@ -37,38 +36,30 @@ export const CategoryList = UU5.Common.VisualComponent.create({
   //@@viewOff:overriding
 
   //@@viewOn:private
-  _loadCategoryList(dtoIn){
-    return Calls.categoriesList(dtoIn);
-  },
-  _addQuestion() {
-    UU5.Environment.setRoute("question/create");
-  },
   //@@viewOff:private
 
   //@@viewOn:render
   render() {
     const {name, questions} = this.props;
     return <UU5.Bricks.Div {...this.getMainPropsToPass()}>
-      <h3>{name}</h3>
+      <h2>{name}</h2>
       <UU5.Common.Fragment>
         <UU5.Bricks.Row>
           <UU5.Bricks.Resize>
             <UU5.Tiles.ListController data={questions} selectable={false}>
               <UU5.Tiles.List
                 tile={
-                  <Question />
+                  <QuestionaryQuestion />
                 }
-                maxTileHeight ={120}
-                rowSpacing={5}
+                tileHeight={100}
               />
             </UU5.Tiles.ListController>
           </UU5.Bricks.Resize>
         </UU5.Bricks.Row>
       </UU5.Common.Fragment>
-      <UU5.Bricks.Button onClick={this._addQuestion} >Add question</UU5.Bricks.Button>
     </UU5.Bricks.Div>;
   }
   //@@viewOff:render
 });
 
-export default CategoryList;
+export default QuestionaryCategory;
