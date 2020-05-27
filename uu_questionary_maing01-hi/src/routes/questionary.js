@@ -54,22 +54,16 @@ export const Questionary = UU5.Common.VisualComponent.create({
           {({ data: listData }) => {
             if (listData) {
               return (
-                <UU5.Common.Fragment>
-                  <UU5.Bricks.Row>
-                    <UU5.Bricks.Resize>
-                      <UU5.Tiles.ListController data={listData} selectable={false}>                 
-                        <UU5.Tiles.List
-                          tile={
-                            <QuestionaryCategory/>
-                          }
-                          tileHeight={350}
-                          rowSpacing={5}
-                          tileBorder
-                        />
-                      </UU5.Tiles.ListController>
-                    </UU5.Bricks.Resize>
-                  </UU5.Bricks.Row>
-                </UU5.Common.Fragment>
+                <UU5.Tiles.ListController data={listData} >                 
+                  <UU5.Tiles.List
+                    tile={
+                      <QuestionaryCategory/>
+                    }
+                    tileHeight = "auto"
+                    
+                    tileBorder
+                  />
+                </UU5.Tiles.ListController>
               );
             } else {
               return <UU5.Bricks.Loading />;

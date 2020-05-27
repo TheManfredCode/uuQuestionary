@@ -4,14 +4,28 @@
     "permissionMap": {
       "{asidOwner}": ["AsidOwner"]
     },
-    "useCaseMap": {
-    }
+    "useCaseMap": {}
   },
   "*": {
-    "profileList": ["Authorities", "Executives", "AwidOwner"],
+    "profileList": ["Authorities","Executives","AwidOwner","Public"],
     "useCaseMap": {
       "init": ["AwidOwner"],
-      "defaultUve": ["Public"]
+      "defaultUve": ["Public"],
+      "category/create": ["Public"],
+      "category/update": ["Public"],
+      "category/list": ["Public"],
+      "category/get": ["Public"],
+      "category/delete": ["Public"],
+      "questionary/create": ["Public"],
+      "questionary/list": ["Public"],
+      "questionary/update": ["Public"],
+      "questionary/get": ["Public"],
+      "questionary/delete": ["Public"],
+      "question/create": ["Public"],
+      "question/update": ["Public"],
+      "question/list": ["Public"],
+      "question/get": ["Public"],
+      "question/delete": ["Public"]
     }
   }
 }

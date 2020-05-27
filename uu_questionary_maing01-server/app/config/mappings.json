@@ -10,6 +10,81 @@
         "realization": "index.html",
         "httpMethod": "GET",
         "type": "UVE"
+      },
+      "category/create": {
+        "realization": "api/controllers/CategoryController.create",
+        "httpMethod": "POST",
+        "type": "CMD"
+      },
+      "category/update": {
+        "realization": "api/controllers/CategoryController.update",
+        "httpMethod": "POST",
+        "type": "CMD"
+      },
+      "category/list": {
+        "realization": "api/controllers/CategoryController.list",
+        "httpMethod": "GET",
+        "type": "CMD"
+      },
+      "category/get": {
+        "realization": "api/controllers/CategoryController.get",
+        "httpMethod": "GET",
+        "type": "CMD"
+      },
+      "category/delete": {
+        "realization": "api/controllers/CategoryController.delete",
+        "httpMethod": "POST",
+        "type": "CMD"
+      },
+      "questionary/create": {
+        "realization": "api/controllers/QuestionaryController.create",
+        "httpMethod": "POST",
+        "type": "CMD"
+      },
+      "questionary/list": {
+        "realization": "api/controllers/QuestionaryController.list",
+        "httpMethod": "GET",
+        "type": "CMD"
+      },
+      "questionary/update": {
+        "realization": "api/controllers/QuestionaryController.update",
+        "httpMethod": "POST",
+        "type": "CMD"
+      },
+      "questionary/get": {
+        "realization": "api/controllers/QuestionaryController.get",
+        "httpMethod": "GET",
+        "type": "CMD"
+      },
+      "questionary/delete": {
+        "realization": "api/controllers/QuestionaryController.delete",
+        "httpMethod": "POST",
+        "type": "CMD"
+      },
+      "question/create": {
+        "realization": "api/controllers/QuestionController.create",
+        "httpMethod": "POST",
+        "type": "CMD"
+      },
+      "question/update": {
+        "realization": "api/controllers/QuestionController.update",
+        "httpMethod": "POST",
+        "type": "CMD"
+      },
+      "question/list": {
+        "realization": "api/controllers/QuestionController.list",
+        "httpMethod": "GET",
+        "type": "CMD"
+      },
+      "question/get": {
+        "realization": "api/controllers/QuestionController.get",
+        "httpMethod": "GET",
+        "type": "CMD"
+      },
+      "question/delete": {
+        "realization": "api/controllers/QuestionController.delete",
+        "httpMethod": "POST",
+        "type": "CMD"
       }
     }
   }

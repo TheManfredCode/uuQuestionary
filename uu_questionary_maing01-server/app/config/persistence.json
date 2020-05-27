@@ -6,6 +6,15 @@
       "schemaMap": {
         "questionaryMain": {
           "realization": "dao/QuestionaryMainMongo"
+        },
+        "category": {
+          "realization": "dao/CategoryMongo"
+        },
+        "questionary": {
+          "realization": "dao/QuestionaryMongo"
+        },
+        "question": {
+          "realization": "dao/QuestionMongo"
         }
       }
     }

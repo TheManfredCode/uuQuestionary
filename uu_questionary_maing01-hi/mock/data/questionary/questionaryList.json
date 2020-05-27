@@ -6,17 +6,17 @@
                 {
                     "name": "question 1",
                     "answers": [
-                        "answer 1",
-                        "answer 2",
-                        "answer 3"
+                        {"answer": "answer1", "points": "10"},
+                        {"answer": "answer2", "points": "15"},
+                        {"answer": "answer3", "points": "20"}
                     ]
                 },
                 {
                     "name": "Is earth round?",
                     "answers":[
-                        "Yes",
-                        "No",
-                        "What?? I'm from Mars))"
+                        {"answer": "Yes"},
+                        {"answer": "No"},
+                        {"answer": "What?? I'm from Mars))"}
                     ]
                 }
             ]
@@ -27,10 +27,10 @@
                 {
                     "name": "whoau???!",
                     "answers": [
-                        "zelenskiy)))",
-                        "neznay",
-                        "programmer",
-                        "Japan warrior"
+                        {"answer": "zelenskiy)))"},
+                        {"answer": "neznay"},
+                        {"answer": "programmer"},
+                        {"answer": "Japan warrior"}
                     ]
                 }
             ]
