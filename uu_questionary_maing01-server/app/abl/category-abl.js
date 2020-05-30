@@ -96,8 +96,9 @@ class CategoryAbl {
     );
 
     let dtoOut;
-
+    
     try {
+      
       dtoOut = await this.dao.update(awid, dtoIn);
     } catch (e) {
       if (e instanceof ObjectStoreError) { // A3
@@ -123,6 +124,7 @@ class CategoryAbl {
     );
     let dtoOut;
     try {
+      dtoIn.questions = [];
       dtoOut = await this.dao.create({...dtoIn, awid});
     } catch (e) {
       if (e instanceof ObjectStoreError) { 

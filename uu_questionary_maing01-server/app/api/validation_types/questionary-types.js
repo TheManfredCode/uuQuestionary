@@ -1,7 +1,7 @@
 /* eslint-disable */
 const questionaryCreateDtoInType = shape({
     name: string(255).isRequired(),
-    questions: array()
+    questions: array(id())
 });
 
 const questionaryUpdateDtoInType = shape({

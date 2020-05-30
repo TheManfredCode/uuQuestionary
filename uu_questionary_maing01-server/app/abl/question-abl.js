@@ -1,7 +1,7 @@
 "use strict";
 const Path = require("path");
 const { Validator } = require("uu_appg01_server").Validation;
-const { DaoFactory } = require("uu_appg01_server").ObjectStore;
+const { DaoFactory, ObjectStoreError} = require("uu_appg01_server").ObjectStore;
 const { ValidationHelper } = require("uu_appg01_server").AppServer;
 const Errors = require("../api/errors/question-error.js");
 
@@ -28,6 +28,7 @@ class QuestionAbl {
   constructor() {
     this.validator = new Validator(Path.join(__dirname, "..", "api", "validation_types", "question-types.js"));
     this.dao = DaoFactory.getDao("question");
+    this.categoryDao = DaoFactory.getDao("category");
   }
 
   //GET
@@ -120,9 +121,22 @@ class QuestionAbl {
       WARNINGS.QuestionCreateUnsupportedKeys.code,
       Errors.Create.InvalidDtoIn,
     );
+    let categoryQuestions = await this.categoryDao.get(awid, dtoIn.categoryId);
+    
     let dtoOut;
     try {
       dtoOut = await this.dao.create({...dtoIn, awid});
+
+      //console.log("AAAAAAAAAAAAAAAAAAAAAAAAA" + dtoIn.categoryId);
+      categoryQuestions.questions.push(dtoOut.id)
+      // let categoryQuestionsNew = categoryQuestions.questions;
+      let categoryDtoIn = {
+        id:"",
+        questions: []
+      };
+      categoryDtoIn.id = dtoIn.categoryId;
+      categoryDtoIn.questions = categoryQuestions.questions;
+      await this.categoryDao.update(awid, categoryDtoIn);
     } catch (e) {
       if (e instanceof ObjectStoreError) { 
         throw new Errors.Create.QuestionDaoCreateFailed({uuAppErrorMap}, e);

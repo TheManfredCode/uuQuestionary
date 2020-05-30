@@ -1,6 +1,7 @@
 /* eslint-disable */
 const questionCreateDtoInType = shape({
     name: string(500).isRequired(),
+    categoryId: id(),
     answers: array(string(500))
 });
 

@@ -30,6 +30,21 @@ let Calls = {
     });
   },
 
+  ////// CMDS
+
+  categoryGet(dtoInData) {
+    let commandUri = Calls.getCommandUri("category/get");
+    return Calls.call("get", commandUri, dtoInData);
+  },
+  questionGet(dtoInData) {
+    let commandUri = Calls.getCommandUri("question/get");
+    return Calls.call("get", commandUri, dtoInData);
+  },
+  questionaryGet(dtoInData) {
+    let commandUri = Calls.getCommandUri("questionary/get");
+    return Calls.call("get", commandUri, dtoInData);
+  },
+
   /*
   For calling command on specific server, in case of developing client site with already deployed
   server in uuCloud etc. You can specify url of this application (or part of url) in development

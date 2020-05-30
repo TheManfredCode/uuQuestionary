@@ -40,7 +40,7 @@ export const QuestionaryCategory = UU5.Common.VisualComponent.create({
 
   //@@viewOn:render
   render() {
-    const {name, questions} = this.props;
+    const {name, questions} = this.props.data;
     return <UU5.Bricks.Div {...this.getMainPropsToPass()}>
       <h2>{name}</h2>
       <UU5.Tiles.ListController data={questions} selectable={false}>
@@ -48,7 +48,7 @@ export const QuestionaryCategory = UU5.Common.VisualComponent.create({
           tile={
             <QuestionaryQuestion />
           }
-          tileHeight = {200}
+          tileHeight = {40}
         />
       </UU5.Tiles.ListController>
     </UU5.Bricks.Div>;

@@ -38,7 +38,16 @@ export const Questionary = UU5.Common.VisualComponent.create({
 
   //@@viewOn:private
   _loadQuestionary(dtoIn){
-    return Calls.getQuestionary(dtoIn);
+    return new Promise((resolve, reject) => {
+      Calls.questionaryGet({
+        data: {id: "5ed27fe604f5cd1f8c49e22c"},
+        done: dtoOut =>
+          resolve(
+            dtoOut
+          ),
+        fail: response => reject(response)
+      });
+    });
   },
   //@@viewOff:private
 
@@ -48,28 +57,19 @@ export const Questionary = UU5.Common.VisualComponent.create({
       <UU5.Forms.Form
         onSave={(opt) => alert(`opt.values:\n${JSON.stringify(opt.values, null, 2)}`)}
       >
-        <UU5.Common.ListDataManager
+        <UU5.Common.DataManager
           onLoad={this._loadQuestionary}
         >
-          {({ data: listData }) => {
-            if (listData) {
+          {({ data: data }) => {
+            if (data) {
               return (
-                <UU5.Tiles.ListController data={listData} >                 
-                  <UU5.Tiles.List
-                    tile={
-                      <QuestionaryCategory/>
-                    }
-                    tileHeight = "auto"
-                    
-                    tileBorder
-                  />
-                </UU5.Tiles.ListController>
+                <QuestionaryCategory data={data}/>
               );
             } else {
               return <UU5.Bricks.Loading />;
             }
           }}
-        </UU5.Common.ListDataManager>
+        </UU5.Common.DataManager>
         <UU5.Forms.Controls />
       </UU5.Forms.Form>
     </UU5.Bricks.Div>;

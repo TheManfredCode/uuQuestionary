@@ -36,29 +36,17 @@ export const QuestionaryQuestion = UU5.Common.VisualComponent.create({
   //@@viewOff:overriding
 
   //@@viewOn:private
-  _loadAnswers (ans) {
-    let ansCheckbox = ans.map(el=>{
-      return (
-        <UU5.Forms.Checkbox label={el}/>
-      );
-    });
-    return ansCheckbox;
+  _loadQuestion(){
+
   },
+
   //@@viewOff:private
 
   //@@viewOn:render
   render() {
-    const {name, answers} = this.props;
+    const {questionId} = this.props;
     return <UU5.Bricks.Div {...this.getMainPropsToPass()}>
-      <UU5.Bricks.Div>{name}</UU5.Bricks.Div>
-      <UU5.Tiles.ListController data={answers} selectable={false}>
-        <UU5.Tiles.List
-          tile={
-            <QuestionaryAnswer />
-          }
-          tileHeight = {60}
-        />
-      </UU5.Tiles.ListController>
+      {this.props.data}      
     </UU5.Bricks.Div>;
   }
   //@@viewOff:render
