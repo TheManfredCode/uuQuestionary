@@ -38,9 +38,8 @@ export const QuestionaryAnswer = UU5.Common.VisualComponent.create({
 
   //@@viewOn:render
   render() {
-    const {answer} = this.props;
     return <UU5.Bricks.Div {...this.getMainPropsToPass()}>
-      <UU5.Forms.Checkbox label={answer}/>
+      <UU5.Forms.Checkbox label={this.props.data}/>
     </UU5.Bricks.Div>;
   }
   //@@viewOff:render

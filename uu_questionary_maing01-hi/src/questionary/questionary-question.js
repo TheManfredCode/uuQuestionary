@@ -3,7 +3,9 @@ import * as UU5 from "uu5g04";
 import "uu5g04-bricks";
 import "uu5tilesg01";
 import Config from "./config/config.js";
+import Calls from "calls";
 import QuestionaryAnswer from "./questionary-answer.js";
+import QuestionaryQuestionload from "./questionary-questionload.js";
 //@@viewOff:imports
 
 export const QuestionaryQuestion = UU5.Common.VisualComponent.create({
@@ -36,17 +38,39 @@ export const QuestionaryQuestion = UU5.Common.VisualComponent.create({
   //@@viewOff:overriding
 
   //@@viewOn:private
-  _loadQuestion(){
-
+  _loadQuestion(dtoIn){
+    dtoIn = this.props.data;
+    return new Promise((resolve, reject) => {
+      Calls.questionGet({
+        data: {id: dtoIn},
+        done: data =>
+          resolve(
+            data
+          ),
+        fail: response => reject(response)
+      });
+    });
   },
 
   //@@viewOff:private
 
   //@@viewOn:render
   render() {
-    const {questionId} = this.props;
+    const questionId = this.props.data;
     return <UU5.Bricks.Div {...this.getMainPropsToPass()}>
-      {this.props.data}      
+      <UU5.Common.DataManager
+        onLoad={this._loadQuestion}
+      >
+        {({ data: data }) => {
+          if (data) {
+            return (
+              <QuestionaryQuestionload data={data}/>
+            );
+          } else {
+            return <UU5.Bricks.Loading />;
+          }
+        }}
+      </UU5.Common.DataManager>
     </UU5.Bricks.Div>;
   }
   //@@viewOff:render
