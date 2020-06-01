@@ -1,19 +1,19 @@
 //@@viewOn:imports
 import * as UU5 from "uu5g04";
 import "uu5g04-bricks";
-import Config from "../core/config/config.js";
-import Calls from "calls";
-import Question from "../questions/question.js";
+import "uu5tilesg01";
+import Config from "./config/config.js";
+import QuestionAnswer from "./question-answer.js";
 //@@viewOff:imports
 
-export const QuestionaryCheckbox = UU5.Common.VisualComponent.create({
+export const QuestionReady = UU5.Common.VisualComponent.create({
   //@@viewOn:mixins
   mixins: [UU5.Common.BaseMixin, UU5.Common.RouteMixin],
   //@@viewOff:mixins
 
   //@@viewOn:statics
   statics: {
-    tagName: Config.TAG + "QuestionaryCheckbox",
+    tagName: Config.TAG + "QuestionReady",
     classNames: {
       main: (props, state) => Config.Css.css``
     }
@@ -40,20 +40,15 @@ export const QuestionaryCheckbox = UU5.Common.VisualComponent.create({
 
   //@@viewOn:render
   render() {
-    const {name, questions} = this.props;
+    const {name, answers} = this.props.data;
     return <UU5.Bricks.Div {...this.getMainPropsToPass()}>
-      <UU5.Forms.Checkbox
-        label={name}
-        size="l"
-        bgStyleChecked="filled"
-        labelPosition="right"
-      />
-      <UU5.Tiles.ListController data={questions} selectable={false}>
+      <UU5.Bricks.Div>{name}</UU5.Bricks.Div>
+      <UU5.Tiles.ListController data={answers} selectable={false}>
         <UU5.Tiles.List
           tile={
-            <Question usedIn="questionaryCreate"/>
+            <QuestionAnswer />
           }
-          tileHeight={50}
+          tileHeight = {50}
         />
       </UU5.Tiles.ListController>
     </UU5.Bricks.Div>;
@@ -61,4 +56,4 @@ export const QuestionaryCheckbox = UU5.Common.VisualComponent.create({
   //@@viewOff:render
 });
 
-export default QuestionaryCheckbox;
+export default QuestionReady;

@@ -177,7 +177,9 @@ export const QuestionCreateate = UU5.Common.VisualComponent.create({
 
   //@@viewOn:render
   render() {
+    const {id} = this.props;
     return <UU5.Bricks.Div {...this.getMainPropsToPass()}>
+      <UU5.Bricks.Div>{id}</UU5.Bricks.Div>
       <UU5.Forms.Form
         onSave={(opt) => alert(`opt.values:\n ${JSON.stringify(opt.values, null, 2)}`)}
         header={<UU5.Bricks.Box content='Create question' colorSchema='green' className='font-size-m' />}

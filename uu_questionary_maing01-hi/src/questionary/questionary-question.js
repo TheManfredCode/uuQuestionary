@@ -77,7 +77,3 @@ export const QuestionaryQuestion = UU5.Common.VisualComponent.create({
 });
 
 export default QuestionaryQuestion;
-
-// for (let i=0; i < ans.length; i++) {
-//   return <UU5.Forms.Checkbox label={ans[i]}/>;
-// }

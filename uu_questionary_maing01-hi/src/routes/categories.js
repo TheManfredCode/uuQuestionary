@@ -39,7 +39,12 @@ export const Categories = UU5.Common.VisualComponent.create({
 
   //@@viewOn:private
   _loadCategoryList(dtoIn){
-    return Calls.categoriesList(dtoIn);
+    return new Promise((resolve, reject) => {
+      Calls.categoryList({
+        done: resolve,
+        fail: reject
+      });
+    });
   },
   //@@viewOff:private
 
@@ -49,25 +54,19 @@ export const Categories = UU5.Common.VisualComponent.create({
       <UU5.Common.ListDataManager
         onLoad={this._loadCategoryList}
       >
-        {({ data: listData}) => {
-          if (listData) {
+        {({ data: data}) => {
+          if (data) {
             return (
-              <UU5.Common.Fragment>
-                <UU5.Bricks.Row>
-                  <UU5.Bricks.Resize>
-                    <UU5.Tiles.ListController data={listData} selectable={true}>                 
-                      <UU5.Tiles.List
-                        tile={
-                          <Category/>
-                        }
-                        tileHeight={250}
-                        rowSpacing={5}
-                        tileBorder
-                      />
-                    </UU5.Tiles.ListController>
-                  </UU5.Bricks.Resize>
-                </UU5.Bricks.Row>
-              </UU5.Common.Fragment>
+              <UU5.Tiles.ListController data={data} selectable={false}>                 
+                <UU5.Tiles.List
+                  tile={
+                    <Category/>
+                  }
+                  tileHeight={900}
+                  rowSpacing={5}
+                  tileBorder
+                />
+              </UU5.Tiles.ListController>
             );
           } else {
             return <UU5.Bricks.Loading />;

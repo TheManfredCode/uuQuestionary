@@ -37,35 +37,26 @@ export const CategoryList = UU5.Common.VisualComponent.create({
   //@@viewOff:overriding
 
   //@@viewOn:private
-  _loadCategoryList(dtoIn){
-    return Calls.categoriesList(dtoIn);
-  },
   _addQuestion() {
     UU5.Environment.setRoute("question/create");
+    console.log("OOOOOOOOOOOOOO" + this.props.categoryId)
   },
   //@@viewOff:private
 
   //@@viewOn:render
   render() {
-    const {name, questions} = this.props;
+    const {name, questions, id} = this.props;
     return <UU5.Bricks.Div {...this.getMainPropsToPass()}>
       <h3>{name}</h3>
-      <UU5.Common.Fragment>
-        <UU5.Bricks.Row>
-          <UU5.Bricks.Resize>
-            <UU5.Tiles.ListController data={questions} selectable={false}>
-              <UU5.Tiles.List
-                tile={
-                  <Question />
-                }
-                maxTileHeight ={120}
-                rowSpacing={5}
-              />
-            </UU5.Tiles.ListController>
-          </UU5.Bricks.Resize>
-        </UU5.Bricks.Row>
-      </UU5.Common.Fragment>
-      <UU5.Bricks.Button onClick={this._addQuestion} >Add question</UU5.Bricks.Button>
+      <UU5.Tiles.ListController data={questions} selectable={false}>
+        <UU5.Tiles.List
+          tile={
+            <Question usedIn="categoryList"/>
+          }
+          tileHeight={250}
+        />
+      </UU5.Tiles.ListController>
+      <UU5.Bricks.Button onClick={this._addQuestion} categoryId={id}>Add question</UU5.Bricks.Button>
     </UU5.Bricks.Div>;
   }
   //@@viewOff:render
