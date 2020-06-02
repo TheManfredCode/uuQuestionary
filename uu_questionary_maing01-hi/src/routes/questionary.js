@@ -49,13 +49,16 @@ export const Questionary = UU5.Common.VisualComponent.create({
       });
     });
   },
+  _onSave (opt) {
+    console.table(opt.component);
+  },
   //@@viewOff:private
 
   //@@viewOn:render
   render() {
     return <UU5.Bricks.Div {...this.getMainPropsToPass()}>
       <UU5.Forms.Form
-        onSave={(opt) => alert(`opt.values:\n${JSON.stringify(opt.values, null, 2)}`)}
+        onSave={(opt) => this._onSave(opt)}
       >
         <UU5.Common.DataManager
           onLoad={this._loadQuestionary}

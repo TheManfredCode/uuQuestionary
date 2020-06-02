@@ -79,7 +79,6 @@ export const Left = UU5.Common.VisualComponent.create({
           onCtrlClick={Tools.openNewTab}
         />
 
-        <LeftLink route="question/create">Question create</LeftLink>
         <LeftLink route="categories">Categories</LeftLink>
         <LeftLink route="questionary/create">Questionary create</LeftLink>
         <LeftLink route="questionary">Questionary</LeftLink>

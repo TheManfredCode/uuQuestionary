@@ -10,7 +10,6 @@ import Left from "./left.js";
 import Bottom from "./bottom.js";
 import About from "../routes/about.js";
 import Home from "../routes/home.js";
-import QuestionCreate from "../routes/question-create.js";
 import Categories from "../routes/categories.js";
 import QuestionaryCreate from "../routes/questionary-create.js";
 import Questionary from "../routes/questionary.js";
@@ -67,7 +66,6 @@ const SpaAuthenticated = UU5.Common.VisualComponent.create({
           routes={{
             "": "home",
             home: { component: <Home /> },
-            "question/create": { component: <QuestionCreate /> },
             categories: { component: <Categories /> },
             "questionary/create": { component: <QuestionaryCreate /> },
             questionary: { component: <Questionary/> },

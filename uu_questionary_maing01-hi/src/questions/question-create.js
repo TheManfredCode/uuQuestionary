@@ -2,6 +2,7 @@
 import * as UU5 from "uu5g04";
 import "uu5g04-bricks";
 import Config from "./config/config.js";
+import Calls from "calls";
 //@@viewOff:imports
 
 export const QuestionCreateate = UU5.Common.VisualComponent.create({
@@ -173,19 +174,36 @@ export const QuestionCreateate = UU5.Common.VisualComponent.create({
         break;
     }
   },
+  _onSave(optData, categoryId){
+    let dtoIn = {name: "question", categoryId: categoryId};
+    let answers = [];
+    for (var key in optData.values) {
+      if (key == "name"){
+        dtoIn.name = optData.values[key];
+      } else {
+        answers.push(optData.values[key]);
+      }
+    }
+    dtoIn.answers = answers;
+    // for (var key in dtoIn) {
+    //   console.log( "Ключ: " + key + " значение: " + dtoIn[key] );
+    // }
+    return Calls.questionCreate(dtoIn);
+  },
   //@@viewOff:private
 
   //@@viewOn:render
   render() {
-    const {id} = this.props;
+    const {categoryId} = this.props;
     return <UU5.Bricks.Div {...this.getMainPropsToPass()}>
-      <UU5.Bricks.Div>{id}</UU5.Bricks.Div>
+      <UU5.Bricks.Div>{categoryId}</UU5.Bricks.Div>
       <UU5.Forms.Form
-        onSave={(opt) => alert(`opt.values:\n ${JSON.stringify(opt.values, null, 2)}`)}
+        //onSave={(opt) => alert(`opt.values:\n ${JSON.stringify(opt.values, null, 2)}`)}
+        onSave={(opt) => this._onSave(opt, categoryId)}
         header={<UU5.Bricks.Box content='Create question' colorSchema='green' className='font-size-m' />}
       >
         <UU5.Forms.Text 
-          name="question" 
+          name="name" 
           label="Question: " 
           placeholder="What's your favourite colour?" 
           required 

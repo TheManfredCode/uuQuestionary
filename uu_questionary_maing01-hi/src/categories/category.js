@@ -5,6 +5,7 @@ import "uu5tilesg01";
 import Config from "../core/config/config.js";
 import Calls from "calls";
 import Question from "../questions/question.js";
+import QuestionCreate from "../questions/question-create.js";
 //@@viewOff:imports
 
 export const CategoryList = UU5.Common.VisualComponent.create({
@@ -37,6 +38,9 @@ export const CategoryList = UU5.Common.VisualComponent.create({
   //@@viewOff:overriding
 
   //@@viewOn:private
+  _onSave(dtoIn) {
+    return Calls.lotCreate(dtoIn.values);
+  },
   _addQuestion() {
     UU5.Environment.setRoute("question/create");
     console.log("OOOOOOOOOOOOOO" + this.props.categoryId)
@@ -45,18 +49,26 @@ export const CategoryList = UU5.Common.VisualComponent.create({
 
   //@@viewOn:render
   render() {
-    const {name, questions, id} = this.props;
+    const { name, questions, id } = this.props;
     return <UU5.Bricks.Div {...this.getMainPropsToPass()}>
       <h3>{name}</h3>
       <UU5.Tiles.ListController data={questions} selectable={false}>
         <UU5.Tiles.List
           tile={
-            <Question usedIn="categoryList"/>
+            <Question usedIn="categoryList" />
           }
           tileHeight={250}
         />
       </UU5.Tiles.ListController>
-      <UU5.Bricks.Button onClick={this._addQuestion} categoryId={id}>Add question</UU5.Bricks.Button>
+      <UU5.Bricks.Modal
+        ref_={addQuestion => this._addQuestion = addQuestion}
+        content={
+          <QuestionCreate
+            categoryId={id}
+          />
+        }
+      />
+      <UU5.Bricks.Button onClick={ () => this._addQuestion.open({size: "m"}) }>Add question</UU5.Bricks.Button>
     </UU5.Bricks.Div>;
   }
   //@@viewOff:render
