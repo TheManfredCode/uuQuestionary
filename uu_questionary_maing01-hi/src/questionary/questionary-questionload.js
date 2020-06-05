@@ -36,21 +36,25 @@ export const QuestionaryQuestionload = UU5.Common.VisualComponent.create({
   //@@viewOff:overriding
 
   //@@viewOn:private
+  _loadAnswers (answers) {
+    let radioAnswers = [];
+    const mappedArray = answers.map(el => {
+      radioAnswers.push({label: el, name: el})
+    })
+    return radioAnswers;
+  },
   //@@viewOff:private
 
   //@@viewOn:render
   render() {
     const {name, answers} = this.props.data;
     return <UU5.Bricks.Div {...this.getMainPropsToPass()}>
-      <UU5.Bricks.Div>{name}</UU5.Bricks.Div>
-      <UU5.Tiles.ListController data={answers} selectable={false}>
-        <UU5.Tiles.List
-          tile={
-            <QuestionaryAnswer />
-          }
-          tileHeight = {50}
-        />
-      </UU5.Tiles.ListController>
+      
+      <UU5.Forms.Radios
+        label={name}
+        size="m"
+        value={this._loadAnswers(answers)}
+      />
     </UU5.Bricks.Div>;
   }
   //@@viewOff:render
