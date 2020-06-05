@@ -25,7 +25,9 @@
       "question/update": ["Public"],
       "question/list": ["Public"],
       "question/get": ["Public"],
-      "question/delete": ["Public"]
+      "question/delete": ["Public"],
+      "answer/create": ["Public"],
+      "answer/list": ["Public"]
     }
   }
 }

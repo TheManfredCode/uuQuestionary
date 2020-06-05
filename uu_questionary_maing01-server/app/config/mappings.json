@@ -85,6 +85,16 @@
         "realization": "api/controllers/QuestionController.delete",
         "httpMethod": "POST",
         "type": "CMD"
+      },
+      "answer/create": {
+        "realization": "api/controllers/AnswerController.create",
+        "httpMethod": "POST",
+        "type": "CMD"
+      },
+      "answer/list": {
+        "realization": "api/controllers/AnswerController.list",
+        "httpMethod": "GET",
+        "type": "CMD"
       }
     }
   }

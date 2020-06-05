@@ -15,6 +15,9 @@
         },
         "question": {
           "realization": "dao/QuestionMongo"
+        },
+        "answer": {
+          "realization": "dao/AnswerMongo"
         }
       }
     }
