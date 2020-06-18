@@ -41,6 +41,7 @@ export const QuestionaryQuestionload = UU5.Common.VisualComponent.create({
     const mappedArray = answers.map(el => {
       radioAnswers.push({label: el, name: el})
     })
+    radioAnswers.push({label: "own", name: "own"})
     return radioAnswers;
   },
   //@@viewOff:private
@@ -55,7 +56,12 @@ export const QuestionaryQuestionload = UU5.Common.VisualComponent.create({
         size="m"
         value={this._loadAnswers(answers)}
       />
-    </UU5.Bricks.Div>;
+      <UU5.Forms.Text
+        label="own answer"
+        placeholder="something very important"
+        size="m"
+      />
+      </UU5.Bricks.Div>;
   }
   //@@viewOff:render
 });
