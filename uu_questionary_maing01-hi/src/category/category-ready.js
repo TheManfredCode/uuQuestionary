@@ -61,14 +61,14 @@ export const CategoryReady = UU5.Common.VisualComponent.create({
   render() {
     const {name, questions} = this.props.data;
     return <UU5.Bricks.Div {...this.getMainPropsToPass()}>
-      <h3>{name}</h3>
+      <h2>{name}</h2>
       <UU5.Tiles.ListController data={questions} selectable={false}>
         <UU5.Tiles.ActionBar title="Question list" actions={this._getActions()} />
         <UU5.Tiles.List
           tile={
             <Question usedIn="categoryList"/>
           }
-          tileHeight={100}
+          tileHeight={250}
           tileMinWidth={100}
           tileMaxWidth={400}
           rowSpacing={2}

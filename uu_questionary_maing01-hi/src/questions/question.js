@@ -74,7 +74,6 @@ export const Question = UU5.Common.VisualComponent.create({
           }
         }}
       </UU5.Common.DataManager>
-      <UU5.Bricks.Button style="float:right;"> Delete</UU5.Bricks.Button>
     </UU5.Bricks.Div>;
   }
   //@@viewOff:render

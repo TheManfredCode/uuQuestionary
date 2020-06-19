@@ -39,7 +39,9 @@ export const QuestionAnswer = UU5.Common.VisualComponent.create({
   //@@viewOn:render
   render() {
     return <UU5.Bricks.Div {...this.getMainPropsToPass()}>
-      {this.props.data}
+    <UU5.Bricks.Ul>
+      <UU5.Bricks.Li content={this.props.data}/>
+    </UU5.Bricks.Ul>    
     </UU5.Bricks.Div>;
   }
   //@@viewOff:render

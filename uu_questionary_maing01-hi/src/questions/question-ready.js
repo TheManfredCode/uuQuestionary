@@ -37,7 +37,7 @@ export const QuestionReady = UU5.Common.VisualComponent.create({
 
   //@@viewOn:private
   _getAnswersNumber() {
-    let {answers} = this.props.data;
+    let { answers } = this.props.data;
     let stat = 0;
     if (answers && answers.length) {
       stat = answers.length;
@@ -54,8 +54,20 @@ export const QuestionReady = UU5.Common.VisualComponent.create({
   render() {
     const { name, answers } = this.props.data;
     return <UU5.Bricks.Div {...this.getMainPropsToPass()}>
-      <UU5.Bricks.Div>{name}</UU5.Bricks.Div>
-      <UU5.Bricks.Div>{this._getAnswersNumber()}</UU5.Bricks.Div>
+      <h4>
+        {name}
+        <UU5.Bricks.Button style="float:right; color:white; background:red"> 
+          <UU5.Bricks.Icon icon="plus4u5-trash-can" />
+        </UU5.Bricks.Button>
+      </h4>
+      <UU5.Tiles.ListController data={answers} selectable={false}>
+        <UU5.Tiles.List
+          tile={
+            <QuestionAnswer />
+          }
+          tileHeight={50}
+        />
+      </UU5.Tiles.ListController>
     </UU5.Bricks.Div>;
   }
   //@@viewOff:render
@@ -65,11 +77,4 @@ export default QuestionReady;
 
 
 
-// <UU5.Tiles.ListController data={answers} selectable={false}>
-//   <UU5.Tiles.List
-//     tile={
-//       <QuestionAnswer />
-//     }
-//     tileHeight={50}
-//   />
-// </UU5.Tiles.ListController>
+
