@@ -36,6 +36,18 @@ export const QuestionReady = UU5.Common.VisualComponent.create({
   //@@viewOff:overriding
 
   //@@viewOn:private
+  _getAnswersNumber() {
+    let {answers} = this.props.data;
+    let stat = 0;
+    if (answers && answers.length) {
+      stat = answers.length;
+    }
+    return (
+      <UU5.Bricks.Div>
+        Answers: {stat}
+      </UU5.Bricks.Div>
+    );
+  },
   //@@viewOff:private
 
   //@@viewOn:render
@@ -43,7 +55,7 @@ export const QuestionReady = UU5.Common.VisualComponent.create({
     const { name, answers } = this.props.data;
     return <UU5.Bricks.Div {...this.getMainPropsToPass()}>
       <UU5.Bricks.Div>{name}</UU5.Bricks.Div>
-
+      <UU5.Bricks.Div>{this._getAnswersNumber()}</UU5.Bricks.Div>
     </UU5.Bricks.Div>;
   }
   //@@viewOff:render

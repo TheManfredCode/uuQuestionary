@@ -50,7 +50,7 @@ export const Tile = UU5.Common.VisualComponent.create({
     }
     return (
       <UU5.Bricks.Div>
-        Statistic: {stat}
+        Questions: {stat}
       </UU5.Bricks.Div>
     );
   },

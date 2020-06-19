@@ -35,6 +35,26 @@ export const CategoryReady = UU5.Common.VisualComponent.create({
   //@@viewOff:overriding
 
   //@@viewOn:private
+  _getActions() {
+    return [
+      {
+        content: {
+          en: "Add question"
+        },
+        onClick: () => {
+          console.log("Add animal");
+          this._modal.open({
+            header: "createHeader",
+            controls: {
+              
+            }
+          });
+        },
+        icon: "mdi-plus-circle",
+        active: true
+      }
+    ]
+  },
   //@@viewOff:private
 
   //@@viewOn:render
@@ -43,12 +63,18 @@ export const CategoryReady = UU5.Common.VisualComponent.create({
     return <UU5.Bricks.Div {...this.getMainPropsToPass()}>
       <h3>{name}</h3>
       <UU5.Tiles.ListController data={questions} selectable={false}>
+        <UU5.Tiles.ActionBar title="Question list" actions={this._getActions()} />
         <UU5.Tiles.List
           tile={
             <Question usedIn="categoryList"/>
           }
-          tileHeight={50}
-        />
+          tileHeight={100}
+          tileMinWidth={100}
+          tileMaxWidth={400}
+          rowSpacing={2}
+          tileSpacing={2}
+          tileBorder
+          />
       </UU5.Tiles.ListController>
     </UU5.Bricks.Div>;
   }
