@@ -185,16 +185,14 @@ export const QuestionCreateate = UU5.Common.VisualComponent.create({
       }
     }
     dtoIn.answers = answers;
-    // for (var key in dtoIn) {
-    //   console.log( "Ключ: " + key + " значение: " + dtoIn[key] );
-    // }
-    return Calls.questionCreate(dtoIn);
+    Calls.questionCreate(dtoIn);
+    window.location.reload(true);
   },
   //@@viewOff:private
 
   //@@viewOn:render
   render() {
-    const {categoryId} = this.props;
+    const categoryId = this.props.categoryId;
     return <UU5.Bricks.Div {...this.getMainPropsToPass()}>
       <UU5.Bricks.Div>{categoryId}</UU5.Bricks.Div>
       <UU5.Forms.Form

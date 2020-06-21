@@ -1,6 +1,7 @@
 //@@viewOn:imports
 import * as UU5 from "uu5g04";
 import "uu5g04-bricks";
+import "uu5tilesg01";
 import Calls from "calls";
 import Config from "./config/config.js";
 import CategoryReady from "../category/category-ready.js";
@@ -8,7 +9,7 @@ import CategoryReady from "../category/category-ready.js";
 
 export const CategoryDetail = UU5.Common.VisualComponent.create({
   //@@viewOn:mixins
-  mixins: [UU5.Common.BaseMixin],
+  mixins: [UU5.Common.BaseMixin, , UU5.Common.RouteMixin],
   //@@viewOff:mixins
 
   //@@viewOn:statics
@@ -38,6 +39,20 @@ export const CategoryDetail = UU5.Common.VisualComponent.create({
   //@@viewOn:private
 
   //@@viewOff:private
+  _createQuestion(dtoIn) {
+    dtoIn.categoryId = this.props.params.id;
+    return Calls.questionCreate(dtoIn);
+  },
+  _handleAddQuestion(data, createQuestion, appData) {
+    createQuestion({data})
+      .then(dtoOut => {
+        console.log("DONE");
+      })
+      .catch(response => {
+        console.log("fail");
+      });
+    console.log("add category");
+  },
   _loadCategory(dtoIn) {
     dtoIn = this.props.params.id;
     return new Promise((resolve, reject) => {
@@ -57,10 +72,13 @@ export const CategoryDetail = UU5.Common.VisualComponent.create({
       <UU5.Common.DataManager
         onLoad={this._loadCategory}
       >
-        {({ data: data }) => {
+        {({ data: data, handleCreate}) => {
           if (data) {
             return (
-              <CategoryReady data={data} />
+              <CategoryReady 
+                data={data}
+                categoryId={this.props.params.id}
+              />
             );
           } else {
             return <UU5.Bricks.Loading />;

@@ -33,7 +33,7 @@ let Calls = {
   ////// CMDS
   categoryCreate(dtoInData) {
     return new Promise((resolve, reject) => {
-      let commandUri = Calls.getCommandUri("category/add");
+      let commandUri = Calls.getCommandUri("category/create");
       Calls.call("post", commandUri, {
         data: dtoInData,
         done: data => resolve({ ...data, inProgress: false }),
