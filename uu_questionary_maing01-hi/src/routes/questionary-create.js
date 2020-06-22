@@ -4,7 +4,12 @@ import "uu5g04-bricks";
 import "uu5tilesg01";
 import Config from "./config/config.js";
 import Calls from "calls";
-import CategoryCheckbox from "../categories/category-checkbox.js";
+import QuestionaryContainer from "../questionary/questionary-container.js";
+import DraggableQuestion from "../questions/draggable-question.js";
+
+import "react-dnd-html5-backend";
+import "react-dnd-touch-backend";
+import React from 'react';
 //@@viewOff:imports
 
 export const QuestionaryCreate = UU5.Common.VisualComponent.create({
@@ -49,36 +54,10 @@ export const QuestionaryCreate = UU5.Common.VisualComponent.create({
 
   //@@viewOn:render
   render() {
-    return <UU5.Bricks.Div {...this.getMainPropsToPass()}>
-      <UU5.Forms.Form
-        onSave={(opt) => alert(`opt.values:\n${JSON.stringify(opt.values, null, 2)}`)}
-      >
-        <UU5.Common.ListDataManager
-        onLoad={this._loadCategoryList}
-        >
-          {({ data: data}) => {
-            if (data) {
-              return (
-                <UU5.Tiles.ListController data={data} selectable={false}>                 
-                  <UU5.Tiles.List
-                    tile={
-                      <CategoryCheckbox/>
-                    }
-                    tileHeight="auto"
-                    rowSpacing={5}
-                    tileBorder
-                  />
-                </UU5.Tiles.ListController>
-              );
-            } else {
-              return <UU5.Bricks.Loading />;
-            }
-          }}
-        </UU5.Common.ListDataManager>
-        <UU5.Forms.Controls />
-      </UU5.Forms.Form>
-            
-    </UU5.Bricks.Div>;
+    return (
+      <UU5.Bricks.Div>
+      </UU5.Bricks.Div>
+    );
   }
   //@@viewOff:render
 });

@@ -14,6 +14,7 @@ import Categories from "../routes/categories.js";
 import QuestionaryCreate from "../routes/questionary-create.js";
 import Questionary from "../routes/questionary.js";
 import CategoryDetail from "../routes/category-detail.js";
+
 //@@viewOff:imports
 
 const SpaAuthenticated = UU5.Common.VisualComponent.create({
