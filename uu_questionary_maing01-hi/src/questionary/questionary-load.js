@@ -35,11 +35,13 @@ export const QuestionaryLoad = UU5.Common.VisualComponent.create({
 
   //@@viewOn:private
   _loadAnswers (answers) {
+    answers.push(
+      <UU5.Forms.Text></UU5.Forms.Text>
+    );
     let radioAnswers = [];
     const mappedArray = answers.map(el => {
       radioAnswers.push({label: el, name: el})
     })
-    radioAnswers.push({label: "own", name: "own"})
     return radioAnswers;
   },
   _loadQuestions (questionsArr) {
