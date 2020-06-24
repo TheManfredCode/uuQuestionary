@@ -4,7 +4,7 @@ import "uu5g04-bricks";
 import "uu5tilesg01";
 import Config from "../core/config/config.js";
 import Calls from "calls";
-import Question from "../questions/question.js";
+import QuestionTile from "../questions/question-tile.js";
 import QuestionCreate from "../questions/question-create.js";
 //@@viewOff:imports
 
@@ -55,7 +55,7 @@ export const CategoryList = UU5.Common.VisualComponent.create({
       <UU5.Tiles.ListController data={questions} selectable={false}>
         <UU5.Tiles.List
           tile={
-            <Question usedIn="categoryList" />
+            <QuestionTile usedIn="categoryList" />
           }
           tileHeight={250}
         />

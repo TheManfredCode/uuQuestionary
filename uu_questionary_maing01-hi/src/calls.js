@@ -62,7 +62,7 @@ let Calls = {
 
   questionCreate(dtoInData) {
     return new Promise((resolve, reject) => {
-      let commandUri = Calls.getCommandUri("question/create");
+      let commandUri = Calls.getCommandUri("question/add");
       Calls.call("post", commandUri, {
         data: dtoInData,
         done: data => resolve({ data}),

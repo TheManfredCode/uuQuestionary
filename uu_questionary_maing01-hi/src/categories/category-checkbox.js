@@ -3,7 +3,7 @@ import * as UU5 from "uu5g04";
 import "uu5g04-bricks";
 import Config from "../core/config/config.js";
 import Calls from "calls";
-import Question from "../questions/question.js";
+import QuestionTile from "../questions/question-tile.js";
 //@@viewOff:imports
 
 export const QuestionaryCheckbox = UU5.Common.VisualComponent.create({
@@ -51,7 +51,7 @@ export const QuestionaryCheckbox = UU5.Common.VisualComponent.create({
       <UU5.Tiles.ListController data={questions} selectable={false}>
         <UU5.Tiles.List
           tile={
-            <Question usedIn="questionaryCreate"/>
+            <QuestionTile usedIn="questionaryCreate"/>
           }
           tileHeight={50}
         />

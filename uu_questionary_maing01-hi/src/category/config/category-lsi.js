@@ -28,5 +28,11 @@ export default {
   categoryName: {
     en: "Category name"
   },
+  createQuestionHeader: {
+    en: "Create Question"
+  },
+  createQuestionButton: {
+    en: "Add Question"
+  },
   ...Lsi.buttons
 };
