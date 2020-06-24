@@ -1,0 +1,62 @@
+{
+    "name": "NEW questionary MOCK",
+    "questions": [
+      {
+        "name": "Update this question?",
+        "categoryId": "5ed267215481f32d0c320982",
+        "answers": [
+          "Yes, why not",
+          "No, why yes"
+        ],
+        "awid": "11111111111111111111111111111112",
+        "id": "5ed27ef104f5cd1f8c49e221"
+      },
+      {
+        "name": "Update this question?  2222",
+        "categoryId": "5ed267615481f32d0c320984",
+        "answers": [
+          "Yes, why not",
+          "No, why yes"
+        ],
+        "awid": "11111111111111111111111111111112",
+        "id": "5ed27f3d04f5cd1f8c49e224"
+      },
+      {
+        "name": "Update this question?  3333",
+        "categoryId": "5ed267615481f32d0c320984",
+        "answers": [
+          "Yes, why not",
+          "No, why yes",
+          "i'm potato"
+        ],
+        "awid": "11111111111111111111111111111112",
+        "id": "5ed27f6c04f5cd1f8c49e227"
+      },
+      {
+        "name": "Do want to join FIRST",
+        "categoryId": "5ed3a9635db5f424ac204e97",
+        "answers": [
+          "Yes, why not",
+          "No, why yes",
+          "i'm potato"
+        ],
+        "awid": "11111111111111111111111111111112",
+        "id": "5ed3a9c55db5f424ac204e9e"
+      },
+      {
+        "name": "Do want to join FIRST ? 22",
+        "categoryId": "5ed3a9635db5f424ac204e97",
+        "answers": [
+          "Yes, why not",
+          "No, why yes",
+          "i'm potato",
+          "i would like to sleep now, bye!"
+        ],
+        "awid": "11111111111111111111111111111112",
+        "id": "5ed3aa255db5f424ac204ea0"
+      }
+    ],
+    "awid": "11111111111111111111111111111112",
+    "id": "5ed27fe604f5cd1f8c49e22c",
+    "uuAppErrorMap": {}
+  }

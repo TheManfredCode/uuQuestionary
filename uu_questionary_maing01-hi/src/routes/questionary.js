@@ -5,6 +5,7 @@ import "uu5tilesg01";
 import Config from "./config/config.js";
 import Calls from "calls";
 import QuestionaryCategory from "../questionary/questionary-category.js";
+import QuestionaryLoad from "../questionary/questionary-load.js";
 //@@viewOff:imports
 
 export const Questionary = UU5.Common.VisualComponent.create({
@@ -37,10 +38,10 @@ export const Questionary = UU5.Common.VisualComponent.create({
   //@@viewOff:overriding
 
   //@@viewOn:private
-  _loadQuestionary(dtoIn){
+  _loadQuestionary(dtoIn) {
     return new Promise((resolve, reject) => {
       Calls.questionaryGet({
-        data: {id: "5ed397e79d6b8009c4d5dad8"},
+        data: { id: "5ed397e79d6b8009c4d5dad8" },
         done: dtoOut =>
           resolve(
             dtoOut
@@ -49,32 +50,28 @@ export const Questionary = UU5.Common.VisualComponent.create({
       });
     });
   },
-  _onSave (opt) {
-    console.table(opt.component);
+  _test() {
+    return "text";
   },
   //@@viewOff:private
 
   //@@viewOn:render
   render() {
     return <UU5.Bricks.Div {...this.getMainPropsToPass()}>
-      <UU5.Forms.Form
-        onSave={(opt) => this._onSave(opt)}
+
+      <UU5.Common.DataManager
+        onLoad={this._loadQuestionary}
       >
-        <UU5.Common.DataManager
-          onLoad={this._loadQuestionary}
-        >
-          {({ data: data }) => {
-            if (data) {
-              return (
-                <QuestionaryCategory data={data}/>
-              );
-            } else {
-              return <UU5.Bricks.Loading />;
-            }
-          }}
-        </UU5.Common.DataManager>
-        <UU5.Forms.Controls />
-      </UU5.Forms.Form>
+        {({ data: data }) => {
+          if (data) {
+            return (
+              <QuestionaryLoad data={data} />
+            );
+          } else {
+            return <UU5.Bricks.Loading />;
+          }
+        }}
+      </UU5.Common.DataManager>
     </UU5.Bricks.Div>;
   }
   //@@viewOff:render
