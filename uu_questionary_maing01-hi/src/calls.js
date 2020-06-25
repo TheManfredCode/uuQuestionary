@@ -50,6 +50,10 @@ let Calls = {
     let commandUri = Calls.getCommandUri("question/get");
     return Calls.call("get", commandUri, dtoInData);
   },
+  questionList(dtoInData) {
+    let commandUri = Calls.getCommandUri("question/list");
+    return Calls.call("get", commandUri, dtoInData);
+  },
   questionaryGet(dtoInData) {
     let commandUri = Calls.getCommandUri("questionary/get");
     return Calls.call("get", commandUri, dtoInData);

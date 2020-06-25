@@ -39,20 +39,7 @@ export const CategoryDetail = UU5.Common.VisualComponent.create({
   //@@viewOn:private
 
   //@@viewOff:private
-  _createQuestion(dtoIn) {
-    dtoIn.categoryId = this.props.params.id;
-    return Calls.questionCreate(dtoIn);
-  },
-  _handleAddQuestion(data, createQuestion, appData) {
-    createQuestion({data})
-      .then(dtoOut => {
-        console.log("DONE");
-      })
-      .catch(response => {
-        console.log("fail");
-      });
-    console.log("add category");
-  },
+  
   _loadCategory(dtoIn) {
     dtoIn = this.props.params.id;
     return new Promise((resolve, reject) => {

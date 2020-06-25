@@ -52,7 +52,7 @@ export const QuestionReady = UU5.Common.VisualComponent.create({
 
   //@@viewOn:render
   render() {
-    const { name, answers } = this.props.data;
+    const { name, answers } = this.props.tileData;
     return <UU5.Bricks.Div {...this.getMainPropsToPass()}>
       <h4>
         {name}
@@ -60,14 +60,7 @@ export const QuestionReady = UU5.Common.VisualComponent.create({
           <UU5.Bricks.Icon icon="plus4u5-trash-can" />
         </UU5.Bricks.Button>
       </h4>
-      <UU5.Tiles.ListController data={answers} selectable={false}>
-        <UU5.Tiles.List
-          tile={
-            <QuestionAnswer />
-          }
-          tileHeight={50}
-        />
-      </UU5.Tiles.ListController>
+      
     </UU5.Bricks.Div>;
   }
   //@@viewOff:render

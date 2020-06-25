@@ -1,10 +1,10 @@
 //@@viewOn:imports
 import * as UU5 from "uu5g04";
 import "uu5g04-bricks";
+import Calls from "calls";
 import Config from "./config/config.js";
 import Question from "../questions/question.js";
 import QuestionCreate from "../questions/question-create.js";
-import FormModal from "../category/form-modal.js";
 //@@viewOff:imports
 
 export const CategoryReady = UU5.Common.VisualComponent.create({
@@ -37,35 +37,35 @@ export const CategoryReady = UU5.Common.VisualComponent.create({
   //@@viewOff:overriding
 
   //@@viewOn:private
-  _createModal(cmp) {
-    this._modal = cmp;
+
+  _handleAddQuestion(data, createQuestion, appData) {
+    createQuestion({data})
+      .then(dtoOut => {
+        console.log("DONE");
+      })
+      .catch(response => {
+        console.log("fail");
+      });
+    console.log("add category");
   },
-  _getActions() {
-    return [
-      {
-        content: {
-          en: "Add question"
-        },
-        onClick: () => {
-          console.log("Add animal");
-          this._modal.open({
-            content: <QuestionCreate categoryId={this.props.categoryId} />,
-            onSave: this.props.onCreate,
-            controls: {
-              buttonSubmitProps: {
-                content: "Confirm"
-              }
-            }
-          });
-        },
-        icon: "mdi-plus-circle",
-        active: true
-      }
-    ]
+  _createQuestion(dtoIn) {
+    dtoIn.categoryId = this.props.categoryId;
+    return Calls.questionCreate(dtoIn);
   },
+  _handleUpdateQuestion () {
 
+  },
+  _handleDeleteQuestoion () {
 
-
+  },
+  _loadQuestionList(dtoIn) {
+    return new Promise((resolve, reject) => {
+      Calls.questionList({
+        done: resolve,
+        fail: reject
+      });
+    });
+  },
   //@@viewOff:private
 
   //@@viewOn:render
@@ -74,36 +74,31 @@ export const CategoryReady = UU5.Common.VisualComponent.create({
     return <UU5.Bricks.Div {...this.getMainPropsToPass()}>
       <h2>
         {name}
-        <UU5.Bricks.Modal
-          ref_={createForm => this._createForm = createForm}
-          content={
-            <QuestionCreate
-              categoryId={this.props.categoryId}
-            />
-          }
-        />
-        <UU5.Bricks.Button
-          onClick={() => this._createForm.open({ size: "m" })}
-          style="float:right; color:white; background:DodgerBlue"
-        >
-          <UU5.Bricks.Icon icon="mdi-plus-circle" />
-          Create question
-        </UU5.Bricks.Button>
+        
       </h2>
-      <UU5.Tiles.ListController data={questions} selectable={false} autoResize={true}>
-        <UU5.Tiles.List
-          tile={
-            <Question usedIn="categoryList" />
-          }
-          tileHeight={250}
-          tileMinWidth={100}
-          tileMaxWidth={400}
-          rowSpacing={2}
-          tileSpacing={2}
-          tileBorder
-        />
-      </UU5.Tiles.ListController>
-      <FormModal ref_={this._createModal} />
+      <UU5.Common.ListDataManager
+        onCreate={this._createQuestion}
+        onUpdate={this._handleUpdateQuestion}
+        onDelete={this._handleDeleteQuestion}
+        onLoad={this._loadQuestionList}
+      >
+      {({data: listData, handleCreate, handleUpdate, handleDelete}) => {
+        if (listData.categoryId == this.props.categoryId) {
+          return (
+            <Question
+              data={listData}
+              onCreate={data => {
+                this._handleAddQuestion(data, handleCreate, listData);
+              }}
+              onUpdate={handleUpdate}
+              onDelete={handleDelete}
+            />
+          );
+        } else {
+          return <UU5.Bricks.Loading />;
+        }
+      }}
+      </UU5.Common.ListDataManager>
     </UU5.Bricks.Div>;
   }
   //@@viewOff:render
