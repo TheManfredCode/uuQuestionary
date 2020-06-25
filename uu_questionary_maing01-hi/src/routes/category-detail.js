@@ -5,7 +5,6 @@ import "uu5tilesg01";
 import Calls from "calls";
 import Config from "./config/config.js";
 import DetailReady from "../category/detail-ready.js";
-import CategoryListReady from "../category/list-ready";
 //@@viewOff:imports
 
 export const CategoryDetail = UU5.Common.VisualComponent.create({
@@ -42,6 +41,9 @@ export const CategoryDetail = UU5.Common.VisualComponent.create({
     dtoIn.categoryId = this.props.params.id;
     return Calls.questionCreate(dtoIn);
   },
+  _deleteCategory(dtoIn) {
+    return Calls.categoryDelete(dtoIn);
+  },
   _handleCreateQuestionDone(dtoOut, appData) {
     let result = UU5.Common.Tools.mergeDeep(appData, dtoOut.data);
     console.table(result);
@@ -56,6 +58,17 @@ export const CategoryDetail = UU5.Common.VisualComponent.create({
       });
     console.log("add category");
   },
+
+  _handleDeleteCategory(category, handleDelete, data) {
+    this._deleteCategory({ ...category, inProgress: true })
+      .then(dtoOut => {
+        UU5.Environment.setRoute("/categories");
+      })
+      .catch(response => {
+        console.log("fail");
+      });
+  },
+
   _loadCategory(dtoIn) {
     dtoIn = this.props.params.id;
     return new Promise((resolve, reject) => {
@@ -73,13 +86,16 @@ export const CategoryDetail = UU5.Common.VisualComponent.create({
     return (
       <UU5.Bricks.Div {...this.getMainPropsToPass()}>
         <UU5.Common.DataManager onLoad={this._loadCategory}>
-          {({ data: data, handleCreate }) => {
+          {({ data: data, handleCreate, handleDelete }) => {
             if (data) {
               return (
                 <DetailReady
                   data={data}
                   onCreate={question => {
                     this._handleAddQuestion(question, handleCreate, data);
+                  }}
+                  onDelete={category => {
+                    this._handleDeleteCategory(category, handleDelete, data);
                   }}
                 />
               );

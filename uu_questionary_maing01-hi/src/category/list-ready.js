@@ -103,7 +103,7 @@ export const ListReady = UU5.Common.VisualComponent.create({
           <UU5.Tiles.ActionBar title="Список категорий" actions={this._getActions()} />
           <UU5.Tiles.List
             tile={this._getTile}
-            tileHeight={100}
+            tileHeight={200}
             tileMinWidth={100}
             tileMaxWidth={400}
             rowSpacing={2}

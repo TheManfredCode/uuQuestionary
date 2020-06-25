@@ -1,6 +1,7 @@
 //@@viewOn:imports
 import * as UU5 from "uu5g04";
 import "uu5g04-bricks";
+import "uu5g04-block-layout";
 import Config from "./config/config.js";
 //@@viewOff:imports
 
@@ -43,41 +44,31 @@ export const Tile = UU5.Common.VisualComponent.create({
 
   //@@viewOn:private
   _getQuestionStatistic() {
-    let {questions} = this.props.tileData;
+    let { questions } = this.props.tileData;
     let stat = 0;
     if (questions && questions.length) {
       stat = questions.length;
     }
-    return (
-      <UU5.Bricks.Div>
-        Questions: {stat}
-      </UU5.Bricks.Div>
-    );
-  },
-  _detailLink() {
-    let link = "category/detail?id=" + this.props.tileData.id;
-    return (
-      <UU5.Bricks.Link href={link}>
-        Details...
-      </UU5.Bricks.Link>
-    );
+    return <UU5.Bricks.Div>Questions: {stat}</UU5.Bricks.Div>;
   },
   _getChildren() {
     return (
-      <UU5.Bricks.Span>
-        {this.props.tileData.name}
+      <UU5.BlockLayout.Block
+        actions={[{ icon: "mdi-settings", content: "Settings", active: true, onClick: () => {
+            UU5.Environment.setRoute("/category/detail", {id: this.props.tileData.id});
+          } }]}
+      >
+        <UU5.BlockLayout.Row className="row">{this.props.tileData.name}</UU5.BlockLayout.Row>
+        <UU5.BlockLayout.Line/>
         {this._getQuestionStatistic()}
-        {this._detailLink()}
-      </UU5.Bricks.Span>
+      </UU5.BlockLayout.Block>
     );
   },
   //@@viewOff:private
 
   //@@viewOn:render
   render() {
-    return (
-      <UU5.Bricks.Div {...this.getMainPropsToPass()}>{this._getChildren()}</UU5.Bricks.Div>
-    );
+    return <UU5.Bricks.Div {...this.getMainPropsToPass()}>{this._getChildren()}</UU5.Bricks.Div>;
   }
   //@@viewOff:render
 });

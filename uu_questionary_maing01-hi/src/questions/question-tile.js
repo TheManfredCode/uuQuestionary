@@ -1,11 +1,9 @@
 //@@viewOn:imports
 import * as UU5 from "uu5g04";
 import "uu5g04-bricks";
-import Calls from "calls";
+import "uu5g04-block-layout";
 import "uu5tilesg01";
 import Config from "../config/config.js";
-import QuestionReady from "./question-ready.js";
-import QuestionCheckbox from "./question-checkbox.js";
 //@@viewOff:imports
 
 export const QuestionTile = UU5.Common.VisualComponent.create({
@@ -32,7 +30,7 @@ export const QuestionTile = UU5.Common.VisualComponent.create({
   getDefaultProps() {
     return {
       data: {}
-    }
+    };
   },
 
   //@@viewOff:getDefaultProps
@@ -47,37 +45,39 @@ export const QuestionTile = UU5.Common.VisualComponent.create({
   //@@viewOff:overriding
 
   //@@viewOn:private
-  //
-  // _loadQuestion(dtoIn) {
-  //   dtoIn = this.props.data;
-  //   return new Promise((resolve, reject) => {
-  //     Calls.questionGet({
-  //       data: {id: dtoIn},
-  //       done: data =>
-  //         resolve(
-  //           data
-  //         ),
-  //       fail: response => reject(response)
-  //     });
-  //   });
-  // },
+  _getAnswersList(answers) {
+    let children = answers.map(element => {
+      return <UU5.Bricks.Li key={UU5.Common.Tools.generateUUID()} content={element} />;
+    });
+
+    return <UU5.Bricks.Ul>{children}</UU5.Bricks.Ul>;
+  },
   _getChild() {
-    let {name} = this.props.data;
+    let { name, answers } = this.props.data;
     return (
-      <UU5.Bricks.Div>
-        {name}
-      </UU5.Bricks.Div>
+      <UU5.BlockLayout.Block
+        actions={[
+          {
+            icon: "mdi-settings",
+            content: "Settings",
+            active: true,
+            onClick: () => {
+              UU5.Environment.setRoute("/category/detail", { id: this.props.data.id });
+            }
+          }
+        ]}
+      >
+        <UU5.BlockLayout.Row className="row">{name}</UU5.BlockLayout.Row>
+        <UU5.BlockLayout.Line />
+        {this._getAnswersList(answers)}
+      </UU5.BlockLayout.Block>
     );
   },
   //@@viewOff:private
 
   //@@viewOn:render
   render() {
-    return (<UU5.Bricks.Div {...this.getMainPropsToPass()}>
-
-      {this._getChild()}
-
-    </UU5.Bricks.Div>);
+    return <UU5.Bricks.Div {...this.getMainPropsToPass()}>{this._getChild()}</UU5.Bricks.Div>;
   }
   //@@viewOff:render
 });

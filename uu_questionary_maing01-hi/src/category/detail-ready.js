@@ -1,6 +1,7 @@
 //@@viewOn:imports
 import * as UU5 from "uu5g04";
 import "uu5g04-bricks";
+import "uu5g04-block-layout";
 import Config from "./config/config.js";
 import QuestionTile from "../questions/question-tile.js";
 import FormModal from "../common/form-modal.js";
@@ -26,6 +27,7 @@ export const DetailReady = UU5.Common.VisualComponent.create({
   //@@viewOn:propTypes
   propTypes: {
     onCreate: UU5.PropTypes.func,
+    onDelete: UU5.PropTypes.func,
     data: UU5.PropTypes.object
   },
   //@@viewOff:propTypes
@@ -35,6 +37,9 @@ export const DetailReady = UU5.Common.VisualComponent.create({
     return {
       onCreate: () => {
         console.log("onCrate is not implemeted");
+      },
+      onDelete: () => {
+        console.log("onDelete is not implemented");
       },
       data: {}
     };
@@ -57,7 +62,7 @@ export const DetailReady = UU5.Common.VisualComponent.create({
   _createModal(cmp) {
     this._modal = cmp;
   },
-  _handleOnSaveQuestion(opt){
+  _handleOnSaveQuestion(opt) {
     let newQuestion = {
       name: opt.name,
       answers: []
@@ -91,14 +96,52 @@ export const DetailReady = UU5.Common.VisualComponent.create({
         },
         icon: "mdi-plus-circle",
         active: true
+      },
+      {
+        content: {
+          en: "Delete"
+        },
+        icon: "mdi-delete",
+        active: false,
+        onClick: () => {
+          //todo delete content
+        }
       }
     ];
   },
 
+  _handleDelete(record) {
+    this._modal.open({
+      header: "Delete",
+      content: <UU5.Bricks.P>{this.getLsiComponent("deleteConfirm", null, record.name)}</UU5.Bricks.P>,
+      onSave: () => this.props.onDelete(record),
+      controls: {
+        buttonSubmitProps: {
+          content: "Delete",
+          colorSchema: "danger"
+        }
+      }
+    });
+  },
+
   _getChildren() {
-    let { name, questions } = this.props.data;
+    let { id, name, questions } = this.props.data;
     return (
-      <UU5.Bricks.Section header={name}>
+      <UU5.BlockLayout.Block
+        actions={[
+          {
+            icon: "mdi-delete",
+            content: "Delete",
+            active: true,
+            onClick: () => {
+              console.log("delete :" + id);
+              this._handleDelete({ name, id });
+            }
+          }
+        ]}
+      >
+        <UU5.BlockLayout.Row>{name}</UU5.BlockLayout.Row>
+        <UU5.BlockLayout.Line />
         <UU5.Bricks.Div {...this.getMainPropsToPass()}>
           <UU5.Tiles.ListController data={questions} selectable={false} autoResize={true}>
             <UU5.Tiles.ActionBar title="Список вопросов" actions={this._getActions()} />
@@ -114,17 +157,13 @@ export const DetailReady = UU5.Common.VisualComponent.create({
           </UU5.Tiles.ListController>
           <FormModal ref_={this._createModal} />
         </UU5.Bricks.Div>
-      </UU5.Bricks.Section>
+      </UU5.BlockLayout.Block>
     );
   },
   //@@viewOff:private
   //@@viewOn:render
   render() {
-    return (
-      <UU5.Bricks.Div {...this.getMainPropsToPass()}>
-        {this._getChildren()}
-      </UU5.Bricks.Div>
-    );
+    return <UU5.Bricks.Div {...this.getMainPropsToPass()}>{this._getChildren()}</UU5.Bricks.Div>;
   }
   //@@viewOff:render
 });

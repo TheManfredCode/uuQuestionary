@@ -1,0 +1,33 @@
+{
+  "id": "11121212121212",
+  "name" : "first mock category111",
+  "questions": [
+    {
+      "id": "112344232433244321",
+      "name": "what is your purpose?",
+      "answers" : [
+        "yes 1",
+        "no 2",
+        "wait what??"
+      ]
+    },
+    {
+      "id": "112344232433244321",
+      "name": "are you stubbed?",
+      "answers" : [
+        "yes 1",
+        "no 2",
+        "wait what??"
+      ]
+    },
+    {
+      "id": "112344232433244321",
+      "name": "Нудик?",
+      "answers" : [
+        "yes 1",
+        "no 2",
+        "wait what??"
+      ]
+    }
+  ]
+}
