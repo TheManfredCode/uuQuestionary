@@ -37,7 +37,29 @@ export const CategoryReady = UU5.Common.VisualComponent.create({
   //@@viewOff:overriding
 
   //@@viewOn:private
-
+  _createQuestion(dtoIn) {
+    let dtoInData = {name: "question", categoryId: this.props.categoryId};
+    let answers = [];
+    for (var key in dtoIn.data) {
+      if (key == "name"){
+        dtoInData.name = dtoIn.data[key];
+      } else {
+        answers.push(dtoIn.data[key]);
+      }
+    }
+    dtoInData.answers = answers;
+    
+    const promise1 = new Promise((resolve, reject) => {
+      resolve(Calls.questionCreate(dtoInData)).then(
+        setTimeout(() => {
+          return (console.log("DONEeee"));
+        }, 2000)
+      );
+    });
+    
+    
+  },
+  
   _handleAddQuestion(data, createQuestion, appData) {
     createQuestion({data})
       .then(dtoOut => {
@@ -48,10 +70,11 @@ export const CategoryReady = UU5.Common.VisualComponent.create({
       });
     console.log("add category");
   },
-  _createQuestion(dtoIn) {
-    dtoIn.categoryId = this.props.categoryId;
-    return Calls.questionCreate(dtoIn);
+  _handleAddQuestionDone(dtoOut, appData) {
+    //todo refresh data
+
   },
+  
   _handleUpdateQuestion () {
 
   },
@@ -61,8 +84,15 @@ export const CategoryReady = UU5.Common.VisualComponent.create({
   _loadQuestionList(dtoIn) {
     return new Promise((resolve, reject) => {
       Calls.questionList({
-        done: resolve,
-        fail: reject
+        data: { 
+          categoryId: this.props.categoryId,
+          "sortBy": "categoryId" 
+        },
+        done: dtoOut =>
+          resolve(
+            dtoOut
+          ),
+        fail: response => reject(response)
       });
     });
   },
@@ -83,7 +113,7 @@ export const CategoryReady = UU5.Common.VisualComponent.create({
         onLoad={this._loadQuestionList}
       >
       {({data: listData, handleCreate, handleUpdate, handleDelete}) => {
-        if (listData.categoryId == this.props.categoryId) {
+        if (listData) {
           return (
             <Question
               data={listData}

@@ -6,6 +6,7 @@ import "uu5tilesg01";
 import Config from "../config/config.js";
 import FormModal from "../category/form-modal.js";
 import QuestionReady from "./question-ready.js";
+import QuestionCreate from "./question-create.js";
 //@@viewOff:imports
 
 export const Question = UU5.Common.VisualComponent.create({
@@ -23,9 +24,32 @@ export const Question = UU5.Common.VisualComponent.create({
   //@@viewOff:statics
 
   //@@viewOn:propTypes
+  propTypes: {
+    data: UU5.PropTypes.array,
+    onCreate: UU5.PropTypes.func,
+    onUpdate: UU5.PropTypes.func,
+    onDelete: UU5.PropTypes.func
+  },
   //@@viewOff:propTypes
 
   //@@viewOn:getDefaultProps
+  getDefaultProps() {
+    return {
+      data: [],
+      onCreate: dto => {
+        console.log("onCreateHandler was fired");
+        console.table(dto);
+      },
+      onUpdate: dto => {
+        console.log("onCreateHandler was fired");
+        console.table(dto);
+      },
+      onDelete: dto => {
+        console.log("onCreateHandler was fired");
+        console.table(dto);
+      }
+    };
+  },
   //@@viewOff:getDefaultProps
 
   //@@viewOn:reactLifeCycle
@@ -50,7 +74,7 @@ export const Question = UU5.Common.VisualComponent.create({
         onClick: () => {
           console.log("Add animal");
           this._modal.open({
-            content: <QuestionCreate categoryId={this.props.categoryId} />,
+            content: <QuestionCreate/>,
             onSave: this.props.onCreate,
             controls: {
               buttonSubmitProps: {
@@ -92,7 +116,7 @@ export const Question = UU5.Common.VisualComponent.create({
         <UU5.Tiles.ActionBar title="Question list" actions={this._getActions()} />
         <UU5.Tiles.List
           tile={this._getTile}
-          tileHeight={100}
+          tileHeight={200}
           tileMinWidth={100}
           tileMaxWidth={400}
           rowSpacing={2}

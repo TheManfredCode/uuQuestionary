@@ -3,6 +3,10 @@ const QuestionAbl = require("../../abl/question-abl.js");
 
 class QuestionController {
 
+  inCategoryList(ucEnv) {
+    return QuestionAbl.inCategoryList(ucEnv.getUri().getAwid(), ucEnv.getDtoIn());
+  }
+
   delete(ucEnv) {
     return QuestionAbl.delete(ucEnv.getUri().getAwid(), ucEnv.getDtoIn());
   }

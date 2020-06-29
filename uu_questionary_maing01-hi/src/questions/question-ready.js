@@ -48,6 +48,13 @@ export const QuestionReady = UU5.Common.VisualComponent.create({
       </UU5.Bricks.Div>
     );
   },
+  _loadAnswers (ans) {
+    let answersArr = [];
+    for (let i = 0; i < ans.length; i++) {
+      answersArr.push(<UU5.Bricks.Li content={ans[i]}/>);
+    }
+    return answersArr;
+  },
   //@@viewOff:private
 
   //@@viewOn:render
@@ -60,6 +67,7 @@ export const QuestionReady = UU5.Common.VisualComponent.create({
           <UU5.Bricks.Icon icon="plus4u5-trash-can" />
         </UU5.Bricks.Button>
       </h4>
+      <UU5.Bricks.Ul>{this._loadAnswers(answers)}</UU5.Bricks.Ul>
       
     </UU5.Bricks.Div>;
   }

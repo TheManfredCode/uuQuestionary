@@ -12,7 +12,8 @@ const questionUpdateDtoInType = shape({
 });
 
 const questionListDtoInType = shape({
-    
+    categoryId: id(),
+    sortBy: string(50) 
 });
 
 const questionGetDtoInType = shape({

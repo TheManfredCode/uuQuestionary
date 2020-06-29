@@ -95,6 +95,11 @@
         "realization": "api/controllers/AnswerController.list",
         "httpMethod": "GET",
         "type": "CMD"
+      },
+      "question/inCategoryList": {
+        "realization": "api/controllers/QuestionController.inCategoryList",
+        "httpMethod": "GET",
+        "type": "CMD"
       }
     }
   }

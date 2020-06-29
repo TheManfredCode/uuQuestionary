@@ -98,7 +98,13 @@ const Delete = {
   }
 };
 
+const InCategoryList = {
+  UC_CODE: `${QUESTION_ERROR_PREFIX}inCategoryList/`,
+  
+};
+
 module.exports = {
+  InCategoryList,
   Create,
   Update,
   List,

@@ -15,6 +15,14 @@ class QuestionMongo extends UuObjectDao {
   async list(awid, pageInfo) {
     return await super.find({ awid }, pageInfo);
   }
+
+  async listSort(filter, sortBy, order, pageInfo,) {
+    let sort = {
+      [sortBy]: order === "asc" ? 1 : -1
+    };
+    return await super.find(filter, pageInfo, sort);
+  }
+
   async get(awid, id) {
     return await super.findOne({ awid, id });
   }

@@ -31,6 +31,24 @@ class QuestionAbl {
     this.categoryDao = DaoFactory.getDao("category");
   }
 
+  //inCategoryList
+
+  async inCategoryList(awid, dtoIn) {
+
+
+    
+    let dtoOut;
+    const { categoryId, sortBy, pageInfo } = dtoIn;
+    let order="asc";
+
+    dtoOut = await this.dao.listSort({awid, categoryId}, sortBy, order, pageInfo)
+
+    return {
+      ...dtoOut,
+      uuAppErrorMap
+    };
+  }
+
   //GET
   async get(awid, dtoIn) {
     let validationResult = this.validator.validate("questionGetDtoInType", dtoIn);
@@ -68,10 +86,28 @@ class QuestionAbl {
       Errors.List.InvalidDtoIn
     );
 
-    let dtoOut;
+    let dtoOut = {itemList: []};
+    const { categoryId, sortBy, pageInfo } = dtoIn;
+    let order="asc";
+
+    //let categoryQuestions = await this.categoryDao.get(awid, dtoIn.categoryId);
+    //let questionList = categoryQuestions.questions;
 
     try {
-      dtoOut = await this.dao.list(awid, dtoIn.pageInfo);
+
+      // console.log ("KKKKKKKKKKKKKKKKKKKKKKKKK" + questionList)
+      // let lot
+      // let lotArray = [];
+      // for (let i = 0; i < questionList.length; i++) {
+      //   lot = await this.dao.get(awid, questionList[i]);
+      //   lotArray.push(lot);
+      // }
+      // dtoOut.itemList = lotArray;
+      if (categoryId) {
+        dtoOut = await this.dao.listSort({awid, categoryId}, sortBy, order, pageInfo);
+      } else {
+        dtoOut = await this.dao.list(awid, pageInfo);
+      }
     } catch (e) {
       if (e instanceof ObjectStoreError) { // A3
         throw new Errors.List.QuestionDaoListFailed({uuAppErrorMap}, e);
