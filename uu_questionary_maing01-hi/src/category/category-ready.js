@@ -85,7 +85,7 @@ export const CategoryReady = UU5.Common.VisualComponent.create({
     return new Promise((resolve, reject) => {
       Calls.questionList({
         data: { 
-          categoryId: this.props.categoryId,
+          "categoryId": this.props.categoryId,
           "sortBy": "categoryId" 
         },
         done: dtoOut =>
