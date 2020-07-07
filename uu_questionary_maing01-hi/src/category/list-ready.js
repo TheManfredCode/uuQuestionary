@@ -3,10 +3,10 @@ import * as UU5 from "uu5g04";
 import "uu5g04-bricks";
 import Config from "./config/config.js";
 import Tile from "./tile.js";
-import FormModal from "./form-modal.js";
+import FormModal from "../common/form-modal.js";
 import CreateForm from "./create-form.js";
 
-import LSI from "./config/list-ready-lsi.js";
+import LSI from "./config/category-lsi.js";
 //@@viewOff:imports
 
 export const ListReady = UU5.Common.VisualComponent.create({
@@ -103,7 +103,7 @@ export const ListReady = UU5.Common.VisualComponent.create({
           <UU5.Tiles.ActionBar title="Список категорий" actions={this._getActions()} />
           <UU5.Tiles.List
             tile={this._getTile}
-            tileHeight={100}
+            tileHeight={200}
             tileMinWidth={100}
             tileMaxWidth={400}
             rowSpacing={2}

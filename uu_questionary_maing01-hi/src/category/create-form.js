@@ -3,7 +3,7 @@ import * as UU5 from "uu5g04";
 import "uu5g04-bricks";
 import Config from "./config/config.js";
 
-import LSI from "./config/list-ready-lsi.js";
+import LSI from "./config/category-lsi.js";
 //@@viewOff:imports
 
 export const CreateForm = UU5.Common.VisualComponent.create({

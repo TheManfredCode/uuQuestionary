@@ -28,5 +28,14 @@ export default {
   categoryName: {
     en: "Category name"
   },
+  createQuestionHeader: {
+    en: "Create Question"
+  },
+  createQuestionButton: {
+    en: "Add Question"
+  },
+  deleteConfirm: {
+    en: 'This action is permanent. Are you sure you want to delete category "%s"?'
+  },
   ...Lsi.buttons
 };
