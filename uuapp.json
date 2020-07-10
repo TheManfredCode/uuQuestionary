@@ -1,6 +1,6 @@
 {
   "product": "uu_questionary_maing01",
-  "version": "0.1.0",
+  "version": "0.1.0-DEV",
   "license": "License Commercial",
   "description": {
     "en": "",
@@ -10,7 +10,11 @@
   "uu_questionary_maing01-server": {
     "devkit": {
       "development": {
-        "appBoxLocationUri": "----- VALUE REQUIRED -----",
+        "appBoxLocationUri": "ues:DEV0149-BT:360DEGREE_FEEDFACK",
+        "appDeploymentUri": null
+      },
+      "production": {
+        "appBoxLocationUri": "ues:DEV0149-BT:360DEGREE_FEEDFACK",
         "appDeploymentUri": null
       }
     }

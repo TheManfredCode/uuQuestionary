@@ -2,14 +2,14 @@
   "schemaVersion": "1.0.0",
   "schemaSpecificationUri": "https://uuos9.plus4u.net/uu-bookkitg01-main/78462435-289fcd2e11d34f3e9b2184bedb236ded/book/page?code=uuSubAppInstanceDescriptor",
   "uuSubApp": {
-    "code": "UU.QUESTIONARY.MAING01",
-    "version": "0.1.0",
-    "name": "uuQuestionaryMaing01",
+    "code": "VIG.360DEGREEFEEDBACK.MAING01",
+    "version": "0.1.0-DEV",
+    "name": "vig360DegreeFeedback",
     "description": "",
     "license": "License Commercial",
     "asidRequired": true,
     "awidCount": 1,
-    "resourcePoolUri": "----- VALUE REQUIRED -----",
+    "resourcePoolUri": "ues:VIG-BT:PROD_AWE",
     "uuAppNodeSetMap": {
       "CMD": {
         "nodeSize": "G1_S",
@@ -17,7 +17,7 @@
           "min": 1,
           "max": 1
         },
-        "appPackUri": null,
+        "appPackUri": "ues:DEV0149-BT:VIG.360DEGREEFEEDBACK.MAING01/APPBOX-0.1.0-DEV:VIG.360DEGREEFEEDBACK.MAING01/CMD-PACK",
         "runtimeStack": "UU.APPG01/APPSERVER_NODEJS_STACK-1.4"
       }
     },
@@ -29,7 +29,21 @@
         "alias": "primary"
       }
     },
-    "uuConfigMap": {
+    "uuConfigMap": {}
+  },
+  "uuSubAppInstance": {
+    "asid": "fb788b205cb842b4a74f9aa1de7c8841",
+    "asidOwner": "25-7226-1",
+    "awidList": [
+      {
+        "awid": "031d3df8e703410487531ab6026fe4a1",
+        "awidOwner": "25-7227-1"
+      }
+    ],
+    "uuAppObjectStoreMap": {
+      "OSID_1": {
+        "osid": "6d3ebb5869a64c46881b2ac67abe5707"
+      }
     }
   }
 }
