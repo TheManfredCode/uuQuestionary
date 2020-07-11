@@ -18,6 +18,9 @@ const WARNINGS = {
   CategoryUpdateUnsupportedKeys: {
     code: `${Errors.Create.UC_CODE}unsupportedKeys`
   },
+  CategoryAddQuestionUnsupportedKeys: {
+    code: `${Errors.Create.UC_CODE}unsupportedKeys`
+  },
   CategoryDeleteUnsupportedKeys: {
     code: `${Errors.Create.UC_CODE}unsupportedKeys`
   }
@@ -113,6 +116,37 @@ class CategoryAbl {
     };
   }
 
+  //ADD QUESTION
+  async addQuestion(awid, dtoIn) {
+    let validationResult = this.validator.validate("categoryAddQuestionDtoInType", dtoIn);
+    let uuAppErrorMap = ValidationHelper.processValidationResult(
+      dtoIn,
+      validationResult,
+      WARNINGS.CategoryAddQuestionUnsupportedKeys.code,
+      Errors.Update.InvalidDtoIn
+    );
+
+    let dtoOut;
+     
+    let questions = await this.dao.get(awid, dtoIn.id);
+    questions.questions.push(dtoIn.questions);
+    dtoIn.questions = questions.questions;
+
+    try {
+      dtoOut = await this.dao.update(awid, dtoIn);
+    } catch (e) {
+      if (e instanceof ObjectStoreError) { // A3
+        throw new Errors.Update.CategoryDaoAddQuestionFailed({uuAppErrorMap}, e);
+      }
+      throw e;
+    }
+
+    return {
+      ...dtoOut,
+      uuAppErrorMap
+    };
+  }
+
   // CREATE
   async create(awid, dtoIn) {
     let validationResult = this.validator.validate("categoryCreateDtoInType", dtoIn);
@@ -124,7 +158,6 @@ class CategoryAbl {
     );
     let dtoOut;
     try {
-      dtoIn.questions = [];
       dtoOut = await this.dao.create({...dtoIn, awid});
     } catch (e) {
       if (e instanceof ObjectStoreError) { 

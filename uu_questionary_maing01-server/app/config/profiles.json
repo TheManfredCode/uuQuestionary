@@ -28,7 +28,8 @@
       "question/delete": ["Public"],
       "answer/create": ["Public"],
       "answer/list": ["Public"],
-      "question/inCategoryList": ["Public"]
+      "question/inCategoryList": ["Public"],
+      "category/addQuestion": ["Public"]
     }
   }
 }

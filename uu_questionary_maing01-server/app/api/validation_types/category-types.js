@@ -1,7 +1,10 @@
 /* eslint-disable */
 const categoryCreateDtoInType = shape({
     name: string(255).isRequired(),
-    questions: array()
+    questions: array(shape({
+        name: string(255),
+        answers: array()
+    }))
 });
 
 const categoryUpdateDtoInType = shape({
@@ -12,6 +15,14 @@ const categoryUpdateDtoInType = shape({
 
 const categoryListDtoInType = shape({
     
+});
+
+const categoryAddQuestionDtoInType = shape({
+    id: id().isRequired(),
+    questions: shape({
+        name: string(255),
+        answers: array()
+    })
 });
 
 const categoryGetDtoInType = shape({

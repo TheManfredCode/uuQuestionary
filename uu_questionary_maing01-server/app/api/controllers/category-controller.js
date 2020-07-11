@@ -3,6 +3,10 @@ const CategoryAbl = require("../../abl/category-abl.js");
 
 class CategoryController {
 
+  addQuestion(ucEnv) {
+    return CategoryAbl.addQuestion(ucEnv.getUri().getAwid(), ucEnv.getDtoIn());
+  }
+
   delete(ucEnv) {
     return CategoryAbl.delete(ucEnv.getUri().getAwid(), ucEnv.getDtoIn());
   }

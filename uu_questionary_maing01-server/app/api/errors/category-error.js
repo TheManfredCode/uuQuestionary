@@ -98,7 +98,27 @@ const Delete = {
   }
 };
 
+const AddQuestion = {
+  UC_CODE: `${CATEGORY_ERROR_PREFIX}addQuestion/`,
+  
+  InvalidDtoIn: class extends QuestionaryMainUseCaseError {
+    constructor() {
+      super(...arguments);
+      this.code = `${Update.UC_CODE}invalidDtoIn`;
+      this.message = "DtoIn is not valid.";
+    }
+  },
+  CategoryDaoAddQuestionFailed: class extends QuestionaryMainUseCaseError {
+    constructor() {
+      super(...arguments);
+      this.code = `${Update.UC_CODE}DAOAddQuestionFailed`;
+      this.message = "AddQuestion DAO failed.";
+    }
+  }
+};
+
 module.exports = {
+  AddQuestion,
   Delete,
   Get,
   List,
