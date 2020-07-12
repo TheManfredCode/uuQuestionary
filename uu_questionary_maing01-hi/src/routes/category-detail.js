@@ -86,17 +86,11 @@ export const CategoryDetail = UU5.Common.VisualComponent.create({
     return (
       <UU5.Bricks.Div {...this.getMainPropsToPass()}>
         <UU5.Common.DataManager onLoad={this._loadCategory}>
-          {({ data: data, handleCreate, handleDelete }) => {
+          {({ data: data }) => {
             if (data) {
               return (
                 <DetailReady
                   data={data}
-                  onCreate={question => {
-                    this._handleAddQuestion(question, handleCreate, data);
-                  }}
-                  onDelete={category => {
-                    this._handleDeleteCategory(category, handleDelete, data);
-                  }}
                 />
               );
             } else {

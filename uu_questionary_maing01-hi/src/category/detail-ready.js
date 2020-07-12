@@ -47,6 +47,11 @@ export const DetailReady = UU5.Common.VisualComponent.create({
   //@@viewOff:getDefaultProps
 
   //@@viewOn:reactLifeCycle
+  getInitialState() {
+    return{
+      questions: this.props.data.questions
+    };
+  },
   //@@viewOff:reactLifeCycle
 
   //@@viewOn:interface
@@ -73,7 +78,13 @@ export const DetailReady = UU5.Common.VisualComponent.create({
       }
     });
     console.table(newQuestion);
-    this.props.onCreate(newQuestion);
+    console.log(this.state.questions);
+    let newQuestionsArray = this.state.questions;
+    newQuestionsArray.push(newQuestion); 
+    this.setState({
+      questions: (newQuestionsArray)
+    })
+    console.log(this.state.questions);
   },
   _getActions() {
     return [
