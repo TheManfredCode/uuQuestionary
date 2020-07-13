@@ -4,12 +4,8 @@ import "uu5g04-bricks";
 import "uu5tilesg01";
 import Config from "./config/config.js";
 import Calls from "calls";
-import QuestionaryContainer from "../questionary/questionary-container.js";
-import DraggableQuestion from "../questions/draggable-question.js";
+import QuestionaryCreateReady from "../questionary/questionary-create-ready.js";
 
-import "react-dnd-html5-backend";
-import "react-dnd-touch-backend";
-import React from 'react';
 //@@viewOff:imports
 
 export const QuestionaryCreate = UU5.Common.VisualComponent.create({
@@ -42,7 +38,7 @@ export const QuestionaryCreate = UU5.Common.VisualComponent.create({
   //@@viewOff:overriding
 
   //@@viewOn:private
-  _loadCategoryList(dtoIn){
+  _loadCategoryList(dtoIn) {
     return new Promise((resolve, reject) => {
       Calls.categoryList({
         done: resolve,
@@ -55,7 +51,21 @@ export const QuestionaryCreate = UU5.Common.VisualComponent.create({
   //@@viewOn:render
   render() {
     return (
-      <UU5.Bricks.Div>
+      <UU5.Bricks.Div {...this.getMainPropsToPass()}>
+        <UU5.Common.DataManager
+          onLoad={this._loadCategoryList}
+        >
+          {({data}) => {
+            if (data) {
+              return (
+                <QuestionaryCreateReady data={data}/>
+              );
+            } else {
+              return <UU5.Bricks.Loading />;
+            }
+          }}
+        </UU5.Common.DataManager>
+
       </UU5.Bricks.Div>
     );
   }

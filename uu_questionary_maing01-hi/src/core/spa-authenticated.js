@@ -70,7 +70,7 @@ const SpaAuthenticated = UU5.Common.VisualComponent.create({
             home: { component: <Home /> },
             categories: { component: <Categories /> },
             "category/detail": { component: <CategoryDetail /> },
-            "questionary/create": { component: <QuestionaryCreate /> },
+            "questionary/new": { component: <QuestionaryCreate /> },
             questionary: { component: <Questionary/> },
             about: { component: <About /> }
           }}

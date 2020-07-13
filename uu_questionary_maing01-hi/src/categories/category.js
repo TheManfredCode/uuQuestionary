@@ -49,9 +49,9 @@ export const CategoryList = UU5.Common.VisualComponent.create({
 
   //@@viewOn:render
   render() {
-    const { name, questions, id } = this.props;
+    //const { name, questions, id } = this.props;
     return <UU5.Bricks.Div {...this.getMainPropsToPass()}>
-      <h3>{name}</h3>
+      {console.log(this.props.data)/*<h3>{name}</h3>
       <UU5.Tiles.ListController data={questions} selectable={false}>
         <UU5.Tiles.List
           tile={
@@ -59,12 +59,11 @@ export const CategoryList = UU5.Common.VisualComponent.create({
           }
           tileHeight={250}
         />
-      </UU5.Tiles.ListController>
+        </UU5.Tiles.ListController>*/}
       <UU5.Bricks.Modal
         ref_={addQuestion => this._addQuestion = addQuestion}
         content={
           <QuestionCreate
-            categoryId={id}
           />
         }
       />

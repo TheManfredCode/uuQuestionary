@@ -78,13 +78,12 @@ export const DetailReady = UU5.Common.VisualComponent.create({
       }
     });
     console.table(newQuestion);
-    console.log(this.state.questions);
+    
     let newQuestionsArray = this.state.questions;
     newQuestionsArray.push(newQuestion); 
     this.setState({
       questions: (newQuestionsArray)
     })
-    console.log(this.state.questions);
   },
   _getActions() {
     return [
