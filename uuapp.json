@@ -11,11 +11,7 @@
     "devkit": {
       "development": {
         "appBoxLocationUri": "ues:DEV0149-BT:360DEGREE_FEEDFACK",
-        "appDeploymentUri": null
-      },
-      "production": {
-        "appBoxLocationUri": "ues:DEV0149-BT:360DEGREE_FEEDFACK",
-        "appDeploymentUri": null
+        "appDeploymentUri": "ues:DEV0149-BT[84723967990114986]:SWFC_UU360DEGREEFEEDBACK_AWE[5f0c64e1f90380fef75faecd]:UU.360DEGREEFEEDBACK.MAING01[5f0eb76bf439f9403d994e0b]"
       }
     }
   }

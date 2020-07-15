@@ -80,6 +80,7 @@ export const Left = UU5.Common.VisualComponent.create({
         />
 
         <LeftLink route="categories">Categories</LeftLink>
+        <LeftLink route="quiz/list">Quizes</LeftLink>
         <LeftLink route="questionary/create">Questionary create</LeftLink>
         <LeftLink route="questionary">Questionary</LeftLink>
         <LeftLink route="questionaryii">Questionaryii</LeftLink>

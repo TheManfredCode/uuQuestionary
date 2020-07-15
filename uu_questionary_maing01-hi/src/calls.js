@@ -64,6 +64,16 @@ let Calls = {
     return Calls.call("get", commandUri, dtoInData);
   },
 
+  quizList(dtoIn) {
+    let commandUri = Calls.getCommandUri("quiz/list");
+    return Calls.call("get", commandUri, dtoIn);
+  },
+
+  quizeSave(dtoIn) {
+    let commandUri = Calls.getCommandUri("quiz/save");
+    return Calls.call("post", commandUri, dtoIn);
+  },
+
   questionCreate(dtoInData) {
     return new Promise((resolve, reject) => {
       let commandUri = Calls.getCommandUri("question/add");

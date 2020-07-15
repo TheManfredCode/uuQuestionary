@@ -1,0 +1,38 @@
+{
+  "id": "123132",
+  "responsibleId": "1-1",
+  "participants": [
+    {
+      "uuIdentity": "123-12"
+    },
+    {
+      "uuIdentity": "123-14"
+    }
+  ],
+  "questions": [
+    {
+      "categoryId": "11121212121212",
+      "categoryName": "first category",
+      "questions": [
+        {
+          "questionName": "some name of questions"
+        },
+        {
+          "questionName": "other name"
+        }
+      ]
+    },
+    {
+      "categoryId": "11123333",
+      "categoryName": "second category",
+      "questions": [
+        {
+          "questionName": "some name of questions"
+        },
+        {
+          "questionName": "other name"
+        }
+      ]
+    }
+  ]
+}
