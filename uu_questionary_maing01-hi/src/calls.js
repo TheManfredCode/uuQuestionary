@@ -41,9 +41,22 @@ let Calls = {
     return Calls.call("get", commandUri, dtoInData);
   },
 
-  categoryDelete(dtoIn) {
-    let commandUri = Calls.getCommandUri("category/delete");
-    return Calls.call("post", commandUri, dtoIn);
+  categoryUpdate(dtoInData){
+    return new Promise((resolve, reject) => {
+      let commandUri = Calls.getCommandUri("category/update");
+      Calls.call("post", commandUri, {
+        data: dtoInData,
+        done: data => resolve({ data}),
+        fail: reject
+      });
+    });
+  },
+
+  categoryDelete(id) {
+    return new Promise((resolve, reject) => {
+      let commandUri = Calls.getCommandUri("category/delete");
+      Calls.call("post", commandUri, { data: { id }, done: resolve, fail: reject });
+    });
   },
 
   categoryAddQuestion(id, newQuestion) {

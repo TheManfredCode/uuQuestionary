@@ -49,7 +49,8 @@ export const DetailReady = UU5.Common.VisualComponent.create({
 
   //@@viewOn:reactLifeCycle
   getInitialState() {
-    return{
+    return {
+      name: this.props.data.name,
       questions: this.props.data.questions
     };
   },
@@ -65,9 +66,11 @@ export const DetailReady = UU5.Common.VisualComponent.create({
   _getTile(data) {
     return <QuestionTile data={data} />;
   },
+
   _createModal(cmp) {
     this._modal = cmp;
   },
+
   _handleOnSaveQuestion(opt) {
     let newQuestion = {
       name: opt.name,
@@ -82,12 +85,17 @@ export const DetailReady = UU5.Common.VisualComponent.create({
 
     Calls.categoryAddQuestion(this.props.data.id, newQuestion);
 
-    let newQuestionsArray = this.state.questions;
-    newQuestionsArray.push(newQuestion); 
+    let newQuestionsArray = [];
+    if (this.state.questions) {
+      newQuestionsArray = this.state.questions;
+    }
+
+    newQuestionsArray.push(newQuestion);
     this.setState({
       questions: (newQuestionsArray)
     })
   },
+
   _getActions() {
     return [
       {
@@ -109,34 +117,37 @@ export const DetailReady = UU5.Common.VisualComponent.create({
         },
         icon: "mdi-plus-circle",
         active: true
-      },
-      {
-        content: {
-          en: "Delete"
-        },
-        icon: "mdi-delete",
-        active: false,
-        onClick: () => {
-          //todo delete content
-        }
-      },
-      {
-        content: {
-          en: "Edit"
-        },
-        active: false,
-        onClick: () => {
-          //tuguduk
+      }
+
+    ];
+  },
+
+  _handleOnUpdateCategory (opt) {
+    opt.id = this.props.data.id;
+    Calls.categoryUpdate(opt);
+    this.setState({
+      name: opt.name
+    })
+  },
+
+  _handleUpdate() {
+    this._modal.open({
+      header: "Edit category name",
+      content: <UU5.Forms.Text label="Name" value={this.state.name} name="name" />,
+      onSave: this._handleOnUpdateCategory,
+      controls: {
+        buttonSubmitProps: {
+          content: "Update category"
         }
       }
-    ];
+    });
   },
 
   _handleDelete(record) {
     this._modal.open({
       header: "Delete",
       content: <UU5.Bricks.P>{this.getLsiComponent("deleteConfirm", null, record.name)}</UU5.Bricks.P>,
-      onSave: () => this.props.onDelete(record),
+      onSave: () => this.props.deleteCategory(this.props.data.id),
       controls: {
         buttonSubmitProps: {
           content: "Delete",
@@ -152,6 +163,14 @@ export const DetailReady = UU5.Common.VisualComponent.create({
       <UU5.BlockLayout.Block
         actions={[
           {
+            icon: "mdi-pencil",
+            content: "Edit",
+            active: true,
+            onClick: () => {
+              this._handleUpdate();
+            }
+          },
+          {
             icon: "mdi-delete",
             content: "Delete",
             active: true,
@@ -162,7 +181,7 @@ export const DetailReady = UU5.Common.VisualComponent.create({
           }
         ]}
       >
-        <UU5.BlockLayout.Row>{name}</UU5.BlockLayout.Row>
+        <UU5.BlockLayout.Row>{this.state.name}</UU5.BlockLayout.Row>
         <UU5.BlockLayout.Line />
         <UU5.Bricks.Div {...this.getMainPropsToPass()}>
           <UU5.Tiles.ListController data={questions} selectable={false} autoResize={true}>

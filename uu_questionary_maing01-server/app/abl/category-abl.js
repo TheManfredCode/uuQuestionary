@@ -157,6 +157,7 @@ class CategoryAbl {
       Errors.Create.InvalidDtoIn,
     );
     let dtoOut;
+    dtoIn.questions = [];
     try {
       dtoOut = await this.dao.create({...dtoIn, awid});
     } catch (e) {

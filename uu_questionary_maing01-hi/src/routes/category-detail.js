@@ -37,36 +37,11 @@ export const CategoryDetail = UU5.Common.VisualComponent.create({
   //@@viewOff:overriding
 
   //@@viewOn:private
-  _createQuestion(dtoIn) {
-    dtoIn.categoryId = this.props.params.id;
-    return Calls.questionCreate(dtoIn);
-  },
   _deleteCategory(dtoIn) {
-    return Calls.categoryDelete(dtoIn);
-  },
-  _handleCreateQuestionDone(dtoOut, appData) {
-    let result = UU5.Common.Tools.mergeDeep(appData, dtoOut.data);
-    console.table(result);
-  },
-  _handleAddQuestion(question, createQuestion, appData) {
-    this._createQuestion({ ...question, inProgress: true })
-      .then(dtoOut => {
-        this._handleCreateQuestionDone(dtoOut, appData);
-      })
-      .catch(response => {
-        console.log("fail");
-      });
-    console.log("add category");
-  },
-
-  _handleDeleteCategory(category, handleDelete, data) {
-    this._deleteCategory({ ...category, inProgress: true })
-      .then(dtoOut => {
-        UU5.Environment.setRoute("/categories");
-      })
-      .catch(response => {
-        console.log("fail");
-      });
+    Calls.categoryDelete(dtoIn)
+    .then(dtoOut => {
+      UU5.Environment.setRoute("/categories");
+    })
   },
 
   _loadCategory(dtoIn) {
@@ -79,18 +54,39 @@ export const CategoryDetail = UU5.Common.VisualComponent.create({
       });
     });
   },
+
+  _categoryUpdate (dtoIn) {
+    return Calls.categoryUpdate(dtoIn);
+  },
+  _handleCategoryUpdate (data, updateCategory) {
+    updateCategory(data)
+      .then(dtoOut => {
+        console.log("successfully updated");
+      })
+      .catch(response => {
+        console.log("update failed");
+      });
+    console.log("update category");
+  },
   //@@viewOff:private
 
   //@@viewOn:render
   render() {
     return (
       <UU5.Bricks.Div {...this.getMainPropsToPass()}>
-        <UU5.Common.DataManager onLoad={this._loadCategory}>
-          {({ data: data }) => {
+        <UU5.Common.DataManager 
+          onLoad={this._loadCategory}
+          onUpdate={this._categoryUpdate}
+        >
+          {({ data: data, handleUpdate}) => {
             if (data) {
               return (
                 <DetailReady
                   data={data}
+                  onUpdate={data => {
+                    this._handleCategoryUpdate(data, handleUpdate);
+                  }}
+                  deleteCategory={this._deleteCategory}
                 />
               );
             } else {
