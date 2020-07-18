@@ -17,20 +17,9 @@ let Calls = {
     let commandUri = Calls.getCommandUri("loadDemoContent");
     return Calls.call("get", commandUri, dtoIn);
   },
-  categoriesList(dtoInData) {
-    return new Promise((resolve, reject) => {
-      let commandUri = Calls.getCommandUri("categories/categoryList");
-      Calls.call("get", commandUri, { data: dtoInData, done: resolve, fail: reject });
-    });
-  },
-  getQuestionary(dtoInData) {
-    return new Promise((resolve, reject) => {
-      let commandUri = Calls.getCommandUri("questionary/questionaryList");
-      Calls.call("get", commandUri, { data: dtoInData, done: resolve, fail: reject });
-    });
-  },
 
-  ////// CMDS
+  // Category cmd
+
   categoryCreate(dtoInData) {
     return new Promise((resolve, reject) => {
       let commandUri = Calls.getCommandUri("category/create");
@@ -42,29 +31,44 @@ let Calls = {
     });
   },
 
+  categoryList(dtoInData) {
+    let commandUri = Calls.getCommandUri("category/list");
+    return Calls.call("get", commandUri, dtoInData);
+  },
+
   categoryGet(dtoInData) {
     let commandUri = Calls.getCommandUri("category/get");
     return Calls.call("get", commandUri, dtoInData);
   },
+
   categoryDelete(dtoIn) {
     let commandUri = Calls.getCommandUri("category/delete");
     return Calls.call("post", commandUri, dtoIn);
   },
+
+  categoryAddQuestion(id, newQuestion) {
+    return new Promise((resolve, reject) => {
+      let commandUri = Calls.getCommandUri("category/addQuestion");
+      Calls.call("post", commandUri, {
+        data: {
+          id: id,
+          questions: newQuestion
+        },
+        done: data => resolve(data),
+        fail: reject
+      });
+    });
+  },
+
+  // Question cmd
+
   questionGet(dtoInData) {
     let commandUri = Calls.getCommandUri("question/get");
     return Calls.call("get", commandUri, dtoInData);
   },
+
   questionList(dtoInData) {
     let commandUri = Calls.getCommandUri("question/list");
-    return Calls.call("get", commandUri, dtoInData);
-  },
-  questionaryGet(dtoInData) {
-    let commandUri = Calls.getCommandUri("questionary/get");
-    return Calls.call("get", commandUri, dtoInData);
-  },
-
-  categoryList(dtoInData) {
-    let commandUri = Calls.getCommandUri("category/list");
     return Calls.call("get", commandUri, dtoInData);
   },
 
@@ -78,6 +82,14 @@ let Calls = {
       });
     });
   },
+
+  // Questionary cmd
+
+  questionaryGet(dtoInData) {
+    let commandUri = Calls.getCommandUri("questionary/get");
+    return Calls.call("get", commandUri, dtoInData);
+  },
+
 
   /*
   For calling command on specific server, in case of developing client site with already deployed

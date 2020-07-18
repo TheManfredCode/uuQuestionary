@@ -58,11 +58,17 @@ export const QuestionTile = UU5.Common.VisualComponent.create({
       <UU5.BlockLayout.Block
         actions={[
           {
-            icon: "mdi-settings",
-            content: "Settings",
-            active: true,
+            content: "Edit",
+            active: false,
             onClick: () => {
-              UU5.Environment.setRoute("/category/detail", { id: this.props.data.id });
+              // UU5.Environment.setRoute("/category/detail", { id: this.props.data.id });
+            }
+          },
+          {
+            content: "Delete",
+            active: false,
+            onClick: () => {
+              //tuguduk
             }
           }
         ]}
@@ -73,6 +79,7 @@ export const QuestionTile = UU5.Common.VisualComponent.create({
       </UU5.BlockLayout.Block>
     );
   },
+
   //@@viewOff:private
 
   //@@viewOn:render

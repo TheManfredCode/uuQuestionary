@@ -2,6 +2,7 @@
 import * as UU5 from "uu5g04";
 import "uu5g04-bricks";
 import "uu5g04-block-layout";
+import Calls from "calls";
 import Config from "./config/config.js";
 import QuestionTile from "../questions/question-tile.js";
 import FormModal from "../common/form-modal.js";
@@ -78,7 +79,9 @@ export const DetailReady = UU5.Common.VisualComponent.create({
       }
     });
     console.table(newQuestion);
-    
+
+    Calls.categoryAddQuestion(this.props.data.id, newQuestion);
+
     let newQuestionsArray = this.state.questions;
     newQuestionsArray.push(newQuestion); 
     this.setState({
@@ -115,6 +118,15 @@ export const DetailReady = UU5.Common.VisualComponent.create({
         active: false,
         onClick: () => {
           //todo delete content
+        }
+      },
+      {
+        content: {
+          en: "Edit"
+        },
+        active: false,
+        onClick: () => {
+          //tuguduk
         }
       }
     ];

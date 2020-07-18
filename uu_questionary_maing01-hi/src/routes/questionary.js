@@ -41,7 +41,7 @@ export const Questionary = UU5.Common.VisualComponent.create({
   _loadQuestionary(dtoIn) {
     return new Promise((resolve, reject) => {
       Calls.questionaryGet({
-        data: { id: "5ecec48282c90f255ca94dda" },
+        data: { id: "5ece63d1c8c9092984fbcd00" },
         done: dtoOut =>
           resolve(
             dtoOut
