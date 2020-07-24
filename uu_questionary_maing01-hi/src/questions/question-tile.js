@@ -4,6 +4,8 @@ import "uu5g04-bricks";
 import "uu5g04-block-layout";
 import "uu5tilesg01";
 import Config from "../config/config.js";
+import UpdateForm from "./update-form.js";
+import FormModal from "../common/form-modal.js";
 //@@viewOff:imports
 
 export const QuestionTile = UU5.Common.VisualComponent.create({
@@ -45,6 +47,10 @@ export const QuestionTile = UU5.Common.VisualComponent.create({
   //@@viewOff:overriding
 
   //@@viewOn:private
+  _createModal(cmp) {
+    this._modal = cmp;
+  },
+
   _getAnswersList(answers) {
     let children = answers.map(element => {
       return <UU5.Bricks.Li key={UU5.Common.Tools.generateUUID()} content={element} />;
@@ -52,6 +58,22 @@ export const QuestionTile = UU5.Common.VisualComponent.create({
 
     return <UU5.Bricks.Ul>{children}</UU5.Bricks.Ul>;
   },
+
+  _handleOnSaveQuestion(opt){
+    let newQuestion = {
+      name: opt.name,
+      answers: []
+    };
+    Object.keys(opt).forEach(key => {
+      if (key !== "name") {
+        newQuestion.answers.push(opt[key]);
+      }
+    });
+    console.table(newQuestion);
+
+    return this.props.updateQuestion(this.props.data.name, newQuestion);
+  },
+
   _getChild() {
     let { name, answers } = this.props.data;
     return (
@@ -61,14 +83,37 @@ export const QuestionTile = UU5.Common.VisualComponent.create({
             content: "Edit",
             active: false,
             onClick: () => {
-              // UU5.Environment.setRoute("/category/detail", { id: this.props.data.id });
+              this._modal.open({
+                header: "Update question",
+                content: <UpdateForm 
+                  questionName={name} 
+                  questionAnswers={answers}
+                />,
+                onSave: this._handleOnSaveQuestion,
+                controls: {
+                  buttonSubmitProps: {
+                    content: "Update"
+                  }
+                }
+              });
             }
           },
           {
             content: "Delete",
             active: false,
             onClick: () => {
-              //tuguduk
+              this._modal.open({
+                header: "Delete",
+                content: <UU5.Bricks.P>Are you sure delete '{this.props.data.name}' question?</UU5.Bricks.P>,
+                onSave: () => this.props.deleteQuestion(this.props.data.name),
+                controls: {
+                  buttonSubmitProps: {
+                    content: "Delete",
+                    colorSchema: "danger"
+                  }
+                }
+              });
+              
             }
           }
         ]}
@@ -76,6 +121,7 @@ export const QuestionTile = UU5.Common.VisualComponent.create({
         <UU5.BlockLayout.Row className="row">{name}</UU5.BlockLayout.Row>
         <UU5.BlockLayout.Line />
         {this._getAnswersList(answers)}
+        <FormModal ref_={this._createModal} />
       </UU5.BlockLayout.Block>
     );
   },

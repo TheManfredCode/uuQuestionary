@@ -63,9 +63,6 @@ export const DetailReady = UU5.Common.VisualComponent.create({
   //@@viewOff:overriding
 
   //@@viewOn:private
-  _getTile(data) {
-    return <QuestionTile data={data} />;
-  },
 
   _createModal(cmp) {
     this._modal = cmp;
@@ -155,6 +152,52 @@ export const DetailReady = UU5.Common.VisualComponent.create({
         }
       }
     });
+  },
+
+  _updateQuestion(name, newQuestion) {
+    let questions = this.state.questions;
+    let dtoIn;
+    for (const key in questions) {
+      if (questions[key].name == name) {
+        questions[key] = newQuestion;
+        this.setState({
+          questions: questions
+        })
+        dtoIn = {
+          id: this.props.data.id,
+          questions: questions
+        }
+        Calls.categoryUpdate(dtoIn);
+      }
+    }
+  },
+
+  _deleteQuestion(name) {
+    let questions = this.state.questions;
+    let dtoIn;
+    for (const key in questions) {
+      if (questions[key].name == name) {
+        questions.splice(key, 1);
+        this.setState({
+          questions: questions
+        })
+        dtoIn = {
+          id: this.props.data.id,
+          questions: questions
+        }
+        Calls.categoryUpdate(dtoIn);      }
+    }
+  },
+
+  _getTile(data) {
+    return (
+      <QuestionTile 
+        data={data} 
+        updateQuestion={(name, data) => {
+          this._updateQuestion(name, data);
+        }} 
+        deleteQuestion={this._deleteQuestion}
+      />);
   },
 
   _getChildren() {
