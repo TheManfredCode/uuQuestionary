@@ -4,7 +4,6 @@ import "uu5g04-bricks";
 import "uu5tilesg01";
 import Config from "./config/config.js";
 import Calls from "calls";
-import QuestionaryCategory from "../questionary/questionary-category.js";
 import QuestionaryLoad from "../questionary/questionary-load.js";
 //@@viewOff:imports
 
@@ -41,7 +40,7 @@ export const Questionary = UU5.Common.VisualComponent.create({
   _loadQuestionary(dtoIn) {
     return new Promise((resolve, reject) => {
       Calls.questionaryGet({
-        data: { id: "5ece63d1c8c9092984fbcd00" },
+        data: { id: "5f1b0325fbfac6028c4198e2" },
         done: dtoOut =>
           resolve(
             dtoOut

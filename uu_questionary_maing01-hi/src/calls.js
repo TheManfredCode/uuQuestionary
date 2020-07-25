@@ -102,6 +102,22 @@ let Calls = {
     let commandUri = Calls.getCommandUri("questionary/get");
     return Calls.call("get", commandUri, dtoInData);
   },
+  questionaryCreate(dtoInData) {
+    return new Promise((resolve, reject) => {
+      let commandUri = Calls.getCommandUri("questionary/create");
+      Calls.call("post", commandUri, {
+        data: dtoInData,
+        done: data => resolve({ data}),
+        fail: reject
+      });
+    });
+  },
+  questionaryList(dtoInData){
+    return new Promise((resolve, reject) => {
+      let commandUri = Calls.getCommandUri("questionary/list");
+      Calls.call("get", commandUri, { data: dtoInData, done: resolve, fail: reject });
+    });
+  },
 
 
   /*

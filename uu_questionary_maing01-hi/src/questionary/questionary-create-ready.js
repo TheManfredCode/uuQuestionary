@@ -2,6 +2,7 @@
 import * as UU5 from "uu5g04";
 import "uu5g04-bricks";
 import Config from "./config/config.js";
+import Calls from "calls";
 //@@viewOff:imports
 
 export const QuestionaryCreateReady = UU5.Common.VisualComponent.create({
@@ -51,14 +52,43 @@ export const QuestionaryCreateReady = UU5.Common.VisualComponent.create({
     }
     return <UU5.Bricks.Accordion onClickNotCollapseOthers>{categoryPannels}</UU5.Bricks.Accordion>
   },
+
+  _handleQuestionarySave (opt, categories) {
+    let questionsArr = [];
+    for (var key in opt.values){
+      console.log(key);
+      for(var i in categories) {
+        for(var el in categories[i].questions){
+          if(categories[i].questions[el].name.replace(/ /g, "-") == key){
+            if (opt.values[key]){
+              questionsArr.push(categories[i].questions[el]);
+            }
+          }
+        }
+      }
+    }
+    console.log(questionsArr);
+    console.log(opt.values.name);
+    let dtoIn = {
+      name: opt.values.name,
+      questions: questionsArr
+    }
+    Calls.questionaryCreate(dtoIn);
+  },
   //@@viewOff:private
 
   //@@viewOn:render
   render() {
     return <UU5.Bricks.Div {...this.getMainPropsToPass()}>
       <UU5.Forms.Form
-        onSave={(opt) => alert(`opt.values:\n${JSON.stringify(opt.values, null, 2)}`)}
+        onSave={(opt) => 
+          this._handleQuestionarySave(opt, this.props.data.itemList)
+          //alert(`opt.values:\n${JSON.stringify(opt.values, null, 2)}`)
+        }
       >
+        <UU5.Forms.Text name="name" label="name" required/>
+        <UU5.Bricks.Line/>
+
         {this._loadCategoryPannel(this.props.data.itemList)}
 
         <UU5.Forms.Controls />
@@ -70,13 +100,4 @@ export const QuestionaryCreateReady = UU5.Common.VisualComponent.create({
 
 export default QuestionaryCreateReady;
 
-// <UU5.Bricks.Accordion onClickNotCollapseOthers>
-//           <UU5.Bricks.Panel header="Panel 1" content={[
-//             <UU5.Forms.Checkbox label="HII" name="test1.1" />,
-//             <UU5.Forms.Checkbox label="HII" name="test1.2" />
-//         ]} />
-//           <UU5.Bricks.Panel header="Panel 2" content={<UU5.Forms.Checkbox label="HII" name="test2" />} />
-//           <UU5.Bricks.Panel header="Panel 3" content={<UU5.Forms.Checkbox label="HII" name="test3" />} />
-//           <UU5.Bricks.Panel header="Panel 4" content={<UU5.Forms.Checkbox label="HII 2" name="test4" />} />
-//           <UU5.Bricks.Panel header="Panel 5" content={<UU5.Forms.Checkbox label="HII 3" name="test5" />} />
-//         </UU5.Bricks.Accordion>
+
