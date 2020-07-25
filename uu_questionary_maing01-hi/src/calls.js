@@ -112,10 +112,10 @@ let Calls = {
       });
     });
   },
-  questionaryList(dtoInData){
+  questionaryList(){
     return new Promise((resolve, reject) => {
       let commandUri = Calls.getCommandUri("questionary/list");
-      Calls.call("get", commandUri, { data: dtoInData, done: resolve, fail: reject });
+      Calls.call("get", commandUri, {done: resolve, fail: reject });
     });
   },
 

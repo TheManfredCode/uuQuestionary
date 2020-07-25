@@ -3,12 +3,12 @@ import * as UU5 from "uu5g04";
 import "uu5g04-bricks";
 import Config from "./config/config.js";
 import Calls from "calls";
-
+import QuestionaryList from "../questionary/questionary-list.js";
 //@@viewOff:imports
 
 export const Questionaries = UU5.Common.VisualComponent.create({
   //@@viewOn:mixins
-  mixins: [UU5.Common.BaseMixin],
+  mixins: [UU5.Common.BaseMixin, UU5.Common.RouteMixin],
   //@@viewOff:mixins
 
   //@@viewOn:statics
@@ -37,12 +37,7 @@ export const Questionaries = UU5.Common.VisualComponent.create({
 
   //@@viewOn:private
   _loadQuestionaryList() {
-    return new Promise((resolve, reject) => {
-      Calls.categoryList({
-        done: resolve,
-        fail: reject
-      });
-    });
+    return Calls.questionaryList();
   },
   //@@viewOff:private
 
@@ -50,19 +45,15 @@ export const Questionaries = UU5.Common.VisualComponent.create({
   render() {
     return (
       <UU5.Bricks.Div {...this.getMainPropsToPass()}>
+        
         <UU5.Common.ListDataManager
-          onLoad={this._loadCategoryList}
+          onLoad={this._loadQuestionaryList}
         >
           {({data: listData, handleCreate, handleUpdate, handleDelete}) => {
             if (listData) {
               return (
-                <CategoryListReady
+                <QuestionaryList
                   data={listData}
-                  onCreate={data => {
-                    this._handleAddCategory(data, handleCreate, listData);
-                  }}
-                  onUpdate={handleUpdate}
-                  onDelete={handleDelete}
                 />
               );
             } else {

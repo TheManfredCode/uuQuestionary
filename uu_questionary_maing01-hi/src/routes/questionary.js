@@ -38,9 +38,10 @@ export const Questionary = UU5.Common.VisualComponent.create({
 
   //@@viewOn:private
   _loadQuestionary(dtoIn) {
+    dtoIn = this.props.params.id;
     return new Promise((resolve, reject) => {
       Calls.questionaryGet({
-        data: { id: "5f1b0325fbfac6028c4198e2" },
+        data: { id: dtoIn },
         done: dtoOut =>
           resolve(
             dtoOut
