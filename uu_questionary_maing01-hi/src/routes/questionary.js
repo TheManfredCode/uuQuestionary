@@ -50,9 +50,7 @@ export const Questionary = UU5.Common.VisualComponent.create({
       });
     });
   },
-  _test() {
-    return "text";
-  },
+  
   //@@viewOff:private
 
   //@@viewOn:render

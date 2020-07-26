@@ -37,43 +37,52 @@ export const QuestionaryLoad = UU5.Common.VisualComponent.create({
   //@@viewOn:private
 
 
-  _loadAnswers(answers) {
-    // answers.push(
-    //   <UU5.Forms.Text
-    //     name = "own"
-    //     label="Own answer"
-    //     placeholder="I'm busy. I'm eating ice cream"
-    //     size="s"
-    //   />
-    // );
+  _loadAnswers(answers, question) {
+
     let radioAnswers = [];
+    let textFormName = question.replace(/ /g, "-") + "-owntxt";
+    let keyId = UU5.Common.Tools.generateUUID();
 
     for (var i in answers) {
-      radioAnswers.push({ label: answers[i], name: i });
+      radioAnswers.push({ label: answers[i], name: answers[i].replace(/ /g, "-") });
     }
-
-    // const mappedArray = answers.map(el => {
-    //   radioAnswers.push({label: el, name: el});
+    radioAnswers.push({ label: "own", name: (question.replace(/ /g, "-") + "-own") })
+    // radioAnswers.push({ 
+    //   label: (
+    //     <UU5.Forms.Text
+    //       key={keyId}
+    //       name={textFormName}
+    //       label=""
+    //       placeholder="I'm busy. I'm eating ice cream"
+    //       size="s"
+    //     />
+    //   ), 
+    //   name: (question.replace(/ /g, "-") + "-own") 
     // })
+
     return radioAnswers;
   },
+  
   _loadQuestions(questionsArr) {
     let getQuestionsForm = [];
 
     for (let i = 0; i < questionsArr.length; i++) {
-      let myName = "own" + i;
+      let textFormName = "own" + i;
+      let keyId = UU5.Common.Tools.generateUUID();
 
       getQuestionsForm.push(<UU5.Bricks.Div>
         <UU5.Bricks.Div> {questionsArr[i].name} </UU5.Bricks.Div>
         <UU5.Forms.Radios
-          name={i}
+          key={keyId}
+          name={questionsArr[i].name.replace(/ /g, "-")}
           label={questionsArr[i].name}
           size="m"
-          value={this._loadAnswers(questionsArr[i].answers)}
+          value={this._loadAnswers(questionsArr[i].answers, questionsArr[i].name)}
         />
         <UU5.Forms.Text
-          name={myName}
-          label="Own answer"
+          key={keyId}
+          name={textFormName}
+          label=""
           placeholder="I'm busy. I'm eating ice cream"
           size="s"
         />
@@ -89,7 +98,7 @@ export const QuestionaryLoad = UU5.Common.VisualComponent.create({
 
   //@@viewOn:render
   render() {
-    const { name, questions, categoryId } = this.props.data;
+    const { name, questions} = this.props.data;
     return <UU5.Bricks.Div {...this.getMainPropsToPass()}>
       <h2>{name}</h2>
       <UU5.Forms.Form
