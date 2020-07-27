@@ -74,6 +74,7 @@ export const QuestionaryCreateReady = UU5.Common.VisualComponent.create({
       questions: questionsArr
     }
     Calls.questionaryCreate(dtoIn);
+    UU5.Environment.setRoute("questionaries");
   },
   //@@viewOff:private
 
@@ -86,7 +87,7 @@ export const QuestionaryCreateReady = UU5.Common.VisualComponent.create({
           //alert(`opt.values:\n${JSON.stringify(opt.values, null, 2)}`)
         }
       >
-        <UU5.Forms.Text name="name" label="name" required/>
+        <UU5.Forms.Text name="name" label="Enter questionary name" size="l" required/>
         <UU5.Bricks.Line/>
 
         {this._loadCategoryPannel(this.props.data.itemList)}

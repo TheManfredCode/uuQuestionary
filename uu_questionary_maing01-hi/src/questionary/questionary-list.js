@@ -4,6 +4,7 @@ import "uu5g04-bricks";
 import Config from "./config/config.js";
 import FormModal from "../common/form-modal.js";
 import QuestionaryTile from "../questionary/questionary-tile.js";
+import QuestionaruCreate from "../routes/questionary-create.js";
 //@@viewOff:imports
 
 export const QuestionaryList = UU5.Common.VisualComponent.create({
@@ -36,6 +37,22 @@ export const QuestionaryList = UU5.Common.VisualComponent.create({
   //@@viewOff:overriding
 
   //@@viewOn:private
+  _getActions() {
+    return [
+      {
+        content: {
+          en: "Add questionary"
+        },
+        onClick: () => {
+          UU5.Environment.getRouter().setRoute({component: <QuestionaruCreate />, url: { useCase: "questionary/new" } }) 
+        },
+        icon: "mdi-plus-circle",
+        active: true
+      }
+
+    ];
+  },
+
   _getTile(tileData) {
     return <QuestionaryTile data={tileData}/>
   },
@@ -46,10 +63,10 @@ export const QuestionaryList = UU5.Common.VisualComponent.create({
     return (
       <UU5.Bricks.Div {...this.getMainPropsToPass()}>
         <UU5.Tiles.ListController data={this.props.data} selectable={false} autoResize={true}>
-          <UU5.Tiles.ActionBar title="Questionaries"/>
+          <UU5.Tiles.ActionBar title="Questionaries" actions={this._getActions()}/>
           <UU5.Tiles.List
             tile={this._getTile}
-            tileHeight={120}
+            tileHeight={200}
             tileMinWidth={100}
             tileMaxWidth={400}
             rowSpacing={2}

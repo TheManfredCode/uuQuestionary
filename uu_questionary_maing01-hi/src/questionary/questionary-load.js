@@ -7,7 +7,7 @@ import Config from "./config/config.js";
 
 export const QuestionaryLoad = UU5.Common.VisualComponent.create({
   //@@viewOn:mixins
-  mixins: [UU5.Common.BaseMixin],
+  mixins: [UU5.Common.BaseMixin, UU5.Common.IdentityMixin],
   //@@viewOff:mixins
 
   //@@viewOn:statics
@@ -35,7 +35,17 @@ export const QuestionaryLoad = UU5.Common.VisualComponent.create({
   //@@viewOff:overriding
 
   //@@viewOn:private
-
+  _onSaveAnswers(opt) {
+    let dtoIn = {
+      name: this.getIdentity().uuIdentity,
+      answers: opt
+    }
+    console.log(dtoIn);
+    Calls.answerCreate(dtoIn).then(() => {
+      this.alert2.addAlert({ content: "Test is done!"})
+    });
+    
+  },
 
   _loadAnswers(answers, question) {
 
@@ -67,22 +77,23 @@ export const QuestionaryLoad = UU5.Common.VisualComponent.create({
     let getQuestionsForm = [];
 
     for (let i = 0; i < questionsArr.length; i++) {
-      let textFormName = "own" + i;
+      let textFormName = questionsArr[i].name + "-own";
       let keyId = UU5.Common.Tools.generateUUID();
 
       getQuestionsForm.push(<UU5.Bricks.Div>
-        <UU5.Bricks.Div> {questionsArr[i].name} </UU5.Bricks.Div>
+        <UU5.Bricks.Section header={questionsArr[i].name}></UU5.Bricks.Section>
+        <UU5.Bricks.Div>  </UU5.Bricks.Div>
         <UU5.Forms.Radios
           key={keyId}
           name={questionsArr[i].name.replace(/ /g, "-")}
-          label={questionsArr[i].name}
+          
           size="m"
           value={this._loadAnswers(questionsArr[i].answers, questionsArr[i].name)}
         />
         <UU5.Forms.Text
           key={keyId}
           name={textFormName}
-          label=""
+          inputWidth="400px"
           placeholder="I'm busy. I'm eating ice cream"
           size="s"
         />
@@ -100,9 +111,11 @@ export const QuestionaryLoad = UU5.Common.VisualComponent.create({
   render() {
     const { name, questions} = this.props.data;
     return <UU5.Bricks.Div {...this.getMainPropsToPass()}>
-      <h2>{name}</h2>
+      <UU5.Bricks.AlertBus position="center" ref_={item => (this.alert2 = item)} colorSchema="success" closeTimer={5000}/>
+      <UU5.Bricks.Section header={name}></UU5.Bricks.Section>
       <UU5.Forms.Form
-        onSave={(opt) => alert(`opt.values:\n${JSON.stringify(opt.values, null, 2)}`)}
+        //onSave={(opt) => alert(`opt.values:\n${JSON.stringify(opt.values, null, 2)}`)}
+        onSave={(opt) => this._onSaveAnswers(opt.values)}
       >
         {this._loadQuestions(questions)}
         <UU5.Forms.Controls />

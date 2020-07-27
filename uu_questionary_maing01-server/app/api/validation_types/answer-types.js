@@ -1,6 +1,6 @@
 /* eslint-disable */
 const answerCreateDtoInType = shape ({
-    questions: array(),
+    answers: shape(),
     name: string(255)
 });
 

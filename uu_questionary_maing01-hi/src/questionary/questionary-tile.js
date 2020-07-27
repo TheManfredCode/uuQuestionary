@@ -34,6 +34,14 @@ export const QuestionaryTile = UU5.Common.VisualComponent.create({
   //@@viewOff:overriding
 
   //@@viewOn:private
+  _getQuestionStatistic() {
+    let { questions } = this.props.data;
+    let stat = 0;
+    if (questions && questions.length) {
+      stat = questions.length;
+    }
+    return <UU5.Bricks.Div>Questions: {stat}</UU5.Bricks.Div>;
+  },
   //@@viewOff:private
 
   //@@viewOn:render
@@ -45,6 +53,8 @@ export const QuestionaryTile = UU5.Common.VisualComponent.create({
           } }]}
       >
         <UU5.BlockLayout.Row className="row">{this.props.data.name}</UU5.BlockLayout.Row>
+        <UU5.BlockLayout.Line/>
+        {this._getQuestionStatistic()}
       </UU5.BlockLayout.Block>
     );
   }

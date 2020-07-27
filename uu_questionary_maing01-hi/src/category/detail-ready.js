@@ -224,7 +224,13 @@ export const DetailReady = UU5.Common.VisualComponent.create({
           }
         ]}
       >
-        <UU5.BlockLayout.Row>{this.state.name}</UU5.BlockLayout.Row>
+        <UU5.Bricks.Button
+          onClick={() => UU5.Environment.setRoute("categories")}
+        >
+          <UU5.Bricks.Icon icon="uu5-arrow-left" /> Back
+        </UU5.Bricks.Button>
+
+        <UU5.BlockLayout.Row><h3>{this.state.name}</h3></UU5.BlockLayout.Row>
         <UU5.BlockLayout.Line />
         <UU5.Bricks.Div {...this.getMainPropsToPass()}>
           <UU5.Tiles.ListController data={questions} selectable={false} autoResize={true}>

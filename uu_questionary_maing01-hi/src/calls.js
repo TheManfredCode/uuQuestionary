@@ -119,6 +119,19 @@ let Calls = {
     });
   },
 
+  // Answer cmd
+
+  answerCreate(dtoInData) {
+    return new Promise((resolve, reject) => {
+      let commandUri = Calls.getCommandUri("answer/create");
+      Calls.call("post", commandUri, {
+        data: dtoInData,
+        done: data => resolve({ data}),
+        fail: reject
+      });
+    });
+  },
+
 
   /*
   For calling command on specific server, in case of developing client site with already deployed
