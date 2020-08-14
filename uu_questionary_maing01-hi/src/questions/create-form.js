@@ -30,7 +30,12 @@ export const CreateForm = UU5.Common.VisualComponent.create({
   //@@viewOn:reactLifeCycle
   getInitialState() {
     return {
-      answers: []
+      answers: [],
+      values: [],
+      test: "",
+      value1: "",
+      testform: this.props.test,
+      nameValue: ""
     };
   },
   //@@viewOff:reactLifeCycle
@@ -42,6 +47,17 @@ export const CreateForm = UU5.Common.VisualComponent.create({
   //@@viewOff:overriding
 
   //@@viewOn:private
+  _getValue(keyId) {
+    let values = this.state.values;
+    let value = "aaa";
+    for (let key in values) {
+      if (values[key].name == keyId) {
+        value = values[key].value;
+      }
+    }
+    console.log(value);
+    return value;
+  },
   _removeInputForAnswer(id) {
     let exists = this.state.answers;
     let newAnswers = exists.filter(element => {
@@ -53,13 +69,42 @@ export const CreateForm = UU5.Common.VisualComponent.create({
   },
   _addInputForAnswer() {
     let exists = this.state.answers;
+    console.log(exists);
+    let existValues = this.state.values;
+    console.log(existValues);
     let keyId = UU5.Common.Tools.generateUUID();
     let newOne = (
       <UU5.Forms.TextButton
         key={keyId}
         id={keyId}
+        onChange={opt => {
+          let values = this.state.values;
+          let answers = this.state.answers;
+          let test = this.state.test;
+          for (let key in values) {
+            if (values[key].name == keyId) {
+              values[key].value = opt.value;
+              test = opt.value;
+              
+            }
+          }
+
+          this.setState({
+            test: test,
+            answers: answers
+          });
+
+        }}
+        value={this.state.test}
+        onChange={opt => {
+          this.setState({
+            value1: opt.value
+          });
+          console.log("On change : " + this.state.value1);
+        }}
+        value={this.state.value1}
         placeholder="Answer option"
-        required
+        
         size="m"
         buttons={[
           {
@@ -71,8 +116,18 @@ export const CreateForm = UU5.Common.VisualComponent.create({
       />
     );
     exists.push(newOne);
-    this.setState({ answers: exists });
+    existValues.push(
+      {
+        name: keyId,
+        value: ""
+      }
+    )
+    this.setState({
+      answers: exists,
+      values: existValues
+    });
   },
+
   _getChildren() {
     return (
       <UU5.Bricks.Div>
@@ -80,8 +135,27 @@ export const CreateForm = UU5.Common.VisualComponent.create({
           inputAttrs={{ maxLength: 255 }}
           name="name"
           label={this.getLsiComponent("questionName")}
+          value={this.state.nameValue}
+
           required
         />
+        <UU5.Forms.TextButton
+          label='Search'
+          onChange={opt => {
+            this.setState({
+              value1: opt.value
+            });
+            console.log("On change : " + this.state.value1);
+          }}
+          value={this.state.value1}
+          
+          buttons={[{
+            icon: 'mdi-magnify',
+            onClick: (opt) => alert('User ' + opt.value + ' is not in database'),
+            colorSchema: 'info'
+          }]}
+        />
+
         <UU5.BlockLayout.Block
           actions={[
             {
@@ -95,9 +169,9 @@ export const CreateForm = UU5.Common.VisualComponent.create({
           <UU5.BlockLayout.Row className="row">Options list</UU5.BlockLayout.Row>
           <UU5.BlockLayout.Line />
         </UU5.BlockLayout.Block>
-        {this.state.answers.map((element, index) => {
-          return element;
-        })}
+
+        {this.state.answers}
+        
       </UU5.Bricks.Div>
     );
   },

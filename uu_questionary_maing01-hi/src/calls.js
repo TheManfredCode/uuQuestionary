@@ -131,6 +131,12 @@ let Calls = {
       });
     });
   },
+  answerList(){
+    return new Promise((resolve, reject) => {
+      let commandUri = Calls.getCommandUri("answer/list");
+      Calls.call("get", commandUri, {done: resolve, fail: reject });
+    });
+  },
 
 
   /*

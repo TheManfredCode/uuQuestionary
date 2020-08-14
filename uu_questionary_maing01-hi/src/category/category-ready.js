@@ -4,7 +4,6 @@ import "uu5g04-bricks";
 import Calls from "calls";
 import Config from "./config/config.js";
 import Question from "../questions/question.js";
-import QuestionCreate from "../questions/question-create.js";
 //@@viewOff:imports
 
 export const CategoryReady = UU5.Common.VisualComponent.create({

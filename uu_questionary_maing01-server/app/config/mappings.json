@@ -105,6 +105,21 @@
         "realization": "api/controllers/CategoryController.addQuestion",
         "httpMethod": "POST",
         "type": "CMD"
+      },
+      "answer/update": {
+        "realization": "api/controllers/AnswerController.update",
+        "httpMethod": "POST",
+        "type": "CMD"
+      },
+      "answer/get": {
+        "realization": "api/controllers/AnswerController.get",
+        "httpMethod": "GET",
+        "type": "CMD"
+      },
+      "answer/delete": {
+        "realization": "api/controllers/AnswerController.delete",
+        "httpMethod": "POST",
+        "type": "CMD"
       }
     }
   }

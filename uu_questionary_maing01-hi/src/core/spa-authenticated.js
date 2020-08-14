@@ -15,6 +15,7 @@ import QuestionaryCreate from "../routes/questionary-create.js";
 import Questionary from "../routes/questionary.js";
 import CategoryDetail from "../routes/category-detail.js";
 import Questionaries from "../routes/questionaries.js";
+import Answers from "../routes/answers.js";
 
 //@@viewOff:imports
 
@@ -74,6 +75,7 @@ const SpaAuthenticated = UU5.Common.VisualComponent.create({
             "questionary/new": { component: <QuestionaryCreate /> },
             questionaries : {component: <Questionaries/>},
             questionary: { component: <Questionary/> },
+            answers: { component: <Answers/>},
             about: { component: <About /> }
           }}
           controlled={false}

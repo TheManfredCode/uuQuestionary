@@ -29,6 +29,61 @@ class AnswerAbl {
     this.validator = new Validator(Path.join(__dirname, "..", "api", "validation_types", "answer-types.js"));
     this.dao = DaoFactory.getDao("answer");
   }
+  
+  //GET
+  async get(awid, dtoIn) {
+    let validationResult = this.validator.validate("answerGetDtoInType", dtoIn);
+    let uuAppErrorMap = ValidationHelper.processValidationResult(
+      dtoIn,
+      validationResult,
+      WARNINGS.AnswerGetUnsupportedKeys.code,
+      Errors.Get.InvalidDtoIn
+    );
+
+    let dtoOut;
+
+    try {
+      dtoOut = await this.dao.get(awid, dtoIn.id);
+    } catch (e) {
+      if (e instanceof ObjectStoreError) { // A3
+        throw new Errors.Get.AnswerDaoGetFailed({uuAppErrorMap}, e);
+      }
+      throw e;
+    }
+
+    return {
+      ...dtoOut,
+      uuAppErrorMap
+    };
+  }
+
+  //UPDATE
+  async update(awid, dtoIn) {
+    let validationResult = this.validator.validate("answerUpdateDtoInType", dtoIn);
+    let uuAppErrorMap = ValidationHelper.processValidationResult(
+      dtoIn,
+      validationResult,
+      WARNINGS.AnswerUpdateUnsupportedKeys.code,
+      Errors.Update.InvalidDtoIn
+    );
+
+    let dtoOut;
+    
+    try {
+      
+      dtoOut = await this.dao.update(awid, dtoIn);
+    } catch (e) {
+      if (e instanceof ObjectStoreError) { // A3
+        throw new Errors.Update.AnswerDaoUpdateFailed({uuAppErrorMap}, e);
+      }
+      throw e;
+    }
+
+    return {
+      ...dtoOut,
+      uuAppErrorMap
+    };
+  }
 
   //LIST
   async list(awid, dtoIn) {
@@ -67,6 +122,8 @@ class AnswerAbl {
       Errors.Create.InvalidDtoIn,
     );
     let dtoOut;
+    dtoIn.completed = false;
+
     try {
       dtoOut = await this.dao.create({...dtoIn, awid});
     } catch (e) {
@@ -78,6 +135,34 @@ class AnswerAbl {
     dtoOut.uuAppErrorMap = uuAppErrorMap;
     return dtoOut;
   }
+
+  //DELETE  
+  async delete(awid, dtoIn) {
+    let validationResult = this.validator.validate("answerDeleteDtoInType", dtoIn);
+    let uuAppErrorMap = ValidationHelper.processValidationResult(
+      dtoIn,
+      validationResult,
+      WARNINGS.AnswerDeleteUnsupportedKeys.code,
+      Errors.Delete.InvalidDtoIn
+    );
+
+    let dtoOut;
+
+    try {
+      dtoOut = await this.dao.delete(awid, dtoIn);
+    } catch (e) {
+      if (e instanceof ObjectStoreError) { // A3
+        throw new Errors.Delete.AnswerDaoDeleteFailed({uuAppErrorMap}, e);
+      }
+      throw e;
+    }
+
+    return {
+      ...dtoOut,
+      uuAppErrorMap
+    };
+  }
+
 }
 
 module.exports = new AnswerAbl();

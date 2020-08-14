@@ -93,6 +93,27 @@ export const DetailReady = UU5.Common.VisualComponent.create({
     })
   },
 
+  _test() {
+    return (
+      <UU5.Forms.TextButton
+        label='Search'
+        onChange={opt => {
+          this.setState({
+            value1: opt.value
+          });
+          console.log("On change : " + this.state.value1);
+        }}
+        value={this.state.value1}
+        
+        buttons={[{
+          icon: 'mdi-magnify',
+          onClick: (opt) => alert('User ' + opt.value + ' is not in database'),
+          colorSchema: 'info'
+        }]}
+      />
+    );
+  },
+
   _getActions() {
     return [
       {
@@ -103,7 +124,7 @@ export const DetailReady = UU5.Common.VisualComponent.create({
           console.log("Add question");
           this._modal.open({
             header: this.getLsiComponent("createQuestionHeader"),
-            content: <CreateForm />,
+            content: <CreateForm test={this._test}/>,
             onSave: this._handleOnSaveQuestion,
             controls: {
               buttonSubmitProps: {

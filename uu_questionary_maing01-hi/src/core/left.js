@@ -80,8 +80,8 @@ export const Left = UU5.Common.VisualComponent.create({
         />
 
         <LeftLink route="categories">Categories</LeftLink>
-        <LeftLink route="questionary/new">Questionary create</LeftLink>
         <LeftLink route="questionaries">Questionaries</LeftLink>
+        <LeftLink route="answers">Answers</LeftLink>
         <LeftLink route="about">{this.getLsiComponent("about")}</LeftLink>
       </UU5.Bricks.Div>
     );

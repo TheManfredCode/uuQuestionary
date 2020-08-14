@@ -4,14 +4,14 @@ import "uu5g04-bricks";
 import Config from "./config/config.js";
 //@@viewOff:imports
 
-export const QuestionAnswer = UU5.Common.VisualComponent.create({
+export const AnswersTile = UU5.Common.VisualComponent.create({
   //@@viewOn:mixins
   mixins: [UU5.Common.BaseMixin],
   //@@viewOff:mixins
 
   //@@viewOn:statics
   statics: {
-    tagName: Config.TAG + "QuestionAnswer",
+    tagName: Config.TAG + "AnswersTile",
     classNames: {
       main: (props, state) => Config.Css.css``
     }
@@ -38,13 +38,13 @@ export const QuestionAnswer = UU5.Common.VisualComponent.create({
 
   //@@viewOn:render
   render() {
-    return <UU5.Bricks.Div {...this.getMainPropsToPass()}>
-    <UU5.Bricks.Ul>
-      <UU5.Bricks.Li content={this.props.data}/>
-    </UU5.Bricks.Ul>    
-    </UU5.Bricks.Div>;
+    return (
+      <UU5.Bricks.Div {...this.getMainPropsToPass()}>
+        {this.props.data.name}
+      </UU5.Bricks.Div>
+    );
   }
   //@@viewOff:render
 });
 
-export default QuestionAnswer;
+export default AnswersTile;

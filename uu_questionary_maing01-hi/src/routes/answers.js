@@ -1,19 +1,19 @@
 //@@viewOn:imports
 import * as UU5 from "uu5g04";
 import "uu5g04-bricks";
-import Config from "./config/config.js";
 import Calls from "calls";
-import QuestionaryList from "../questionary/questionary-list.js";
+import Config from "./config/config.js";
+import AnswersList from "../answers/answers-list.js";
 //@@viewOff:imports
 
-export const Questionaries = UU5.Common.VisualComponent.create({
+export const Answers = UU5.Common.VisualComponent.create({
   //@@viewOn:mixins
   mixins: [UU5.Common.BaseMixin, UU5.Common.RouteMixin],
   //@@viewOff:mixins
 
   //@@viewOn:statics
   statics: {
-    tagName: Config.TAG + "Questionaries",
+    tagName: Config.TAG + "Answers",
     classNames: {
       main: (props, state) => Config.Css.css``
     }
@@ -36,8 +36,8 @@ export const Questionaries = UU5.Common.VisualComponent.create({
   //@@viewOff:overriding
 
   //@@viewOn:private
-  _loadQuestionaryList() {
-    return Calls.questionaryList();
+  _loadAnswersList() {
+    return Calls.answerList();
   },
   //@@viewOff:private
 
@@ -45,14 +45,13 @@ export const Questionaries = UU5.Common.VisualComponent.create({
   render() {
     return (
       <UU5.Bricks.Div {...this.getMainPropsToPass()}>
-        
         <UU5.Common.ListDataManager
-          onLoad={this._loadQuestionaryList}
+          onLoad={this._loadAnswersList}
         >
-          {({data: listData}) => {
+          {({ data: listData }) => {
             if (listData) {
               return (
-                <QuestionaryList
+                <AnswersList
                   data={listData}
                 />
               );
@@ -67,4 +66,4 @@ export const Questionaries = UU5.Common.VisualComponent.create({
   //@@viewOff:render
 });
 
-export default Questionaries;
+export default Answers;
