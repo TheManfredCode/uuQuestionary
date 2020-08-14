@@ -2,14 +2,14 @@
   "schemaVersion": "1.0.0",
   "schemaSpecificationUri": "https://uuos9.plus4u.net/uu-bookkitg01-main/78462435-289fcd2e11d34f3e9b2184bedb236ded/book/page?code=uuSubAppInstanceDescriptor",
   "uuSubApp": {
-    "code": "UU.QUESTIONARY.MAING01",
-    "version": "0.1.0",
-    "name": "uuQuestionaryMaing01",
+    "code": "UU.360DEGREEFEEDBACK.MAING01",
+    "version": "0.1.0-DEV",
+    "name": "uu360DegreeFeedbackMaing01",
     "description": "",
     "license": "License Commercial",
     "asidRequired": true,
     "awidCount": 1,
-    "resourcePoolUri": "----- VALUE REQUIRED -----",
+    "resourcePoolUri": "ues:DEV0149-BT[84723967990114986]:SWFC_UU360DEGREEFEEDBACK_AWE[5f0c64e1f90380fef75faecd]",
     "uuAppNodeSetMap": {
       "CMD": {
         "nodeSize": "G1_S",
@@ -17,7 +17,7 @@
           "min": 1,
           "max": 1
         },
-        "appPackUri": null,
+        "appPackUri": "ues:DEV0149-BT:UU.360DEGREEFEEDBACK.MAING01/APPBOX-0.1.0-DEV:UU.360DEGREEFEEDBACK.MAING01/CMD-PACK",
         "runtimeStack": "UU.APPG01/APPSERVER_NODEJS_STACK-1.4"
       }
     },
@@ -29,7 +29,21 @@
         "alias": "primary"
       }
     },
-    "uuConfigMap": {
+    "uuConfigMap": {}
+  },
+  "uuSubAppInstance": {
+    "asid": "a0f5fee0b0714f5f9ad1219f7c5fe99a",
+    "asidOwner": "25-7568-1",
+    "awidList": [
+      {
+        "awid": "ec4226982d064514b99eccf98439d080",
+        "awidOwner": "25-7569-1"
+      }
+    ],
+    "uuAppObjectStoreMap": {
+      "OSID_1": {
+        "osid": "0141dc9377734fdbb942bd348b8da90f"
+      }
     }
   }
 }
