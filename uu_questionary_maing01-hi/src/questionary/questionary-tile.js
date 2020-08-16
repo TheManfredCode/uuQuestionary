@@ -49,7 +49,7 @@ export const QuestionaryTile = UU5.Common.VisualComponent.create({
     return (
       <UU5.BlockLayout.Block
         actions={[{ icon: "mdi-radioactive", content: "GO", active: true, onClick: () => {
-            UU5.Environment.setRoute("/questionary", {id: this.props.data.id});
+            UU5.Environment.setRoute("/questionary/template", {id: this.props.data.id});
           } }]}
       >
         <UU5.BlockLayout.Row className="row">{this.props.data.name}</UU5.BlockLayout.Row>

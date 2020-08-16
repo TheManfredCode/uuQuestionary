@@ -123,6 +123,8 @@ class AnswerAbl {
     );
     let dtoOut;
     dtoIn.completed = false;
+    dtoIn.answers = {};
+    dtoIn.name = "";
 
     try {
       dtoOut = await this.dao.create({...dtoIn, awid});

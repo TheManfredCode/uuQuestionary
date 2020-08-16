@@ -1,7 +1,9 @@
 /* eslint-disable */
 const answerCreateDtoInType = shape ({
+    questionaryId: id().isRequired(),
     answers: shape(),
-    name: string(255)
+    name: string(255),
+    uuId: string(50)
 });
 
 const answerListDtoInType = shape ({
@@ -20,5 +22,6 @@ const answerUpdateDtoInType = shape ({
     id: id().isRequired(),
     completed: boolean(),
     answers: shape(),
-    name: string(255)
+    name: string(255),
+    uuId: string(50)
 });
