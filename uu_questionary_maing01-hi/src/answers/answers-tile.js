@@ -65,6 +65,13 @@ export const AnswersTile = UU5.Common.VisualComponent.create({
       </UU5.Common.DataManager>
     );
   },
+  _getAction(testValues){
+    if(testValues.completed) {
+      UU5.Environment.setRoute("/questionary/completed", {id: testValues.id, questionaryId: testValues.questionaryId});
+    } else {
+      UU5.Environment.setRoute("/questionary", {id: testValues.id, questionaryId: testValues.questionaryId});
+    }
+  },
   //@@viewOff:private
 
   //@@viewOn:render
@@ -76,7 +83,7 @@ export const AnswersTile = UU5.Common.VisualComponent.create({
         <UU5.BlockLayout.Block
           actions={[
             { icon: "mdi-radioactive", content: "GO", active: true, onClick: () => {
-                UU5.Environment.setRoute("/questionary", {id: id, questionaryId: questionaryId});
+                this._getAction(this.props.data);
               } 
             }
           ]}

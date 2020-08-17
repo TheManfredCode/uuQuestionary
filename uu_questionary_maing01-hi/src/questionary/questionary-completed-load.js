@@ -34,11 +34,84 @@ export const QuestionaryCompletedLoad = UU5.Common.VisualComponent.create({
   //@@viewOff:overriding
 
   //@@viewOn:private
+  _getOwnAnswerValue(name, answersValues) {
+    let value;
+    for (var key in answersValues){
+      if (name == key) {
+        value = answersValues[key];
+      }
+    }
+    return value;
+  },
+
+  _loadAnswers(answers, question, answersValues) {
+    let radioAnswers = [];
+
+    for (var i in answers) {
+      let answer;
+      for (var key in answersValues){
+        if (answersValues[key].replace(/ /g, "-") === answers[i].replace(/ /g, "-")) {
+          answer = { label: answers[i], name: answers[i].replace(/ /g, "-"), value: true };
+          break;
+        } else {
+          answer = { label: answers[i], name: answers[i].replace(/ /g, "-")};
+        }
+      }
+      radioAnswers.push(answer);
+    }
+    radioAnswers.push({ label: "own", name: (question.replace(/ /g, "-") + "-own") })
+
+    return radioAnswers;
+  },
+  
+  _loadQuestions(questionsArr, answersValues) {
+    let getQuestionsForm = [];
+
+    for (let i = 0; i < questionsArr.length; i++) {
+      let textFormName = questionsArr[i].name + "-own";
+      let keyId = UU5.Common.Tools.generateUUID();
+
+      getQuestionsForm.push(<UU5.Bricks.Div>
+        <UU5.Bricks.Section header={questionsArr[i].name}></UU5.Bricks.Section>
+        <UU5.Bricks.Div>  </UU5.Bricks.Div>
+        <UU5.Forms.Radios
+          key={keyId}
+          name={questionsArr[i].name.replace(/ /g, "-")}
+          
+          size="m"
+          value={this._loadAnswers(questionsArr[i].answers, questionsArr[i].name, answersValues)}
+          readOnly
+        />
+        <UU5.Forms.Text
+          key={keyId}
+          name={textFormName}
+          value={this._getOwnAnswerValue(textFormName, answersValues)}
+          inputWidth="400px"
+          placeholder="I'm busy. I'm eating ice cream"
+          size="s"
+          readOnly
+        />
+      </UU5.Bricks.Div>);
+    }
+
+    return getQuestionsForm.map(el => {
+      return <UU5.Bricks.Span key={UU5.Common.Tools.generateUUID()}>{el}</UU5.Bricks.Span>
+    })
+  },
   //@@viewOff:private
 
   //@@viewOn:render
   render() {
-    return <UU5.Bricks.Div {...this.getMainPropsToPass()}>Component {this.getTagName()}</UU5.Bricks.Div>;
+    const { name, questions} = this.props.questionaryData;
+    const {answers} = this.props.testData;
+    return (
+      <UU5.Bricks.Div {...this.getMainPropsToPass()}>
+        <UU5.Bricks.Section header={name}></UU5.Bricks.Section>
+        <UU5.Forms.Form>
+          {this._loadQuestions(questions, answers)}
+        </UU5.Forms.Form>
+      </UU5.Bricks.Div>
+    );
   }
   //@@viewOff:render
 });
