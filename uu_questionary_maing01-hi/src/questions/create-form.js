@@ -77,32 +77,32 @@ export const CreateForm = UU5.Common.VisualComponent.create({
       <UU5.Forms.TextButton
         key={keyId}
         id={keyId}
-        onChange={opt => {
-          let values = this.state.values;
-          let answers = this.state.answers;
-          let test = this.state.test;
-          for (let key in values) {
-            if (values[key].name == keyId) {
-              values[key].value = opt.value;
-              test = opt.value;
+        // onChange={opt => {
+        //   let values = this.state.values;
+        //   let answers = this.state.answers;
+        //   let test = this.state.test;
+        //   for (let key in values) {
+        //     if (values[key].name == keyId) {
+        //       values[key].value = opt.value;
+        //       test = opt.value;
               
-            }
-          }
+        //     }
+        //   }
 
-          this.setState({
-            test: test,
-            answers: answers
-          });
+        //   this.setState({
+        //     test: test,
+        //     answers: answers
+        //   });
 
-        }}
-        value={this.state.test}
-        onChange={opt => {
-          this.setState({
-            value1: opt.value
-          });
-          console.log("On change : " + this.state.value1);
-        }}
-        value={this.state.value1}
+        // }}
+        // value={this.state.test}
+        // onChange={opt => {
+        //   this.setState({
+        //     value1: opt.value
+        //   });
+        //   console.log("On change : " + this.state.value1);
+        // }}
+        // value={this.state.value1}
         placeholder="Answer option"
         
         size="m"
@@ -138,22 +138,6 @@ export const CreateForm = UU5.Common.VisualComponent.create({
           value={this.state.nameValue}
 
           required
-        />
-        <UU5.Forms.TextButton
-          label='Search'
-          onChange={opt => {
-            this.setState({
-              value1: opt.value
-            });
-            console.log("On change : " + this.state.value1);
-          }}
-          value={this.state.value1}
-          
-          buttons={[{
-            icon: 'mdi-magnify',
-            onClick: (opt) => alert('User ' + opt.value + ' is not in database'),
-            colorSchema: 'info'
-          }]}
         />
 
         <UU5.BlockLayout.Block

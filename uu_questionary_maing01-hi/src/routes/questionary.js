@@ -37,8 +37,8 @@ export const Questionary = UU5.Common.VisualComponent.create({
   //@@viewOff:overriding
 
   //@@viewOn:private
-  _loadQuestionary(dtoIn) {
-    dtoIn = this.props.params.id;
+  _loadQuestionary() {
+    let dtoIn = this.props.params.questionaryId;
     return new Promise((resolve, reject) => {
       Calls.questionaryGet({
         data: { id: dtoIn },
@@ -56,14 +56,13 @@ export const Questionary = UU5.Common.VisualComponent.create({
   //@@viewOn:render
   render() {
     return <UU5.Bricks.Div {...this.getMainPropsToPass()}>
-
       <UU5.Common.DataManager
         onLoad={this._loadQuestionary}
       >
         {({ data: data }) => {
           if (data) {
             return (
-              <QuestionaryLoad data={data} />
+              <QuestionaryLoad data={data} testId={this.props.params.id}/>
             );
           } else {
             return <UU5.Bricks.Loading />;

@@ -60,7 +60,7 @@ export const QuestionaryTemplateReady = UU5.Common.VisualComponent.create({
       uuId: uuId
     }
     Calls.answerCreate(dtoIn).then(() => {
-      this.alert2.addAlert({ content: "Test for user '" + uuId + "' created"})
+      UU5.Environment.setRoute("answers");
     });
   },
   //@@viewOff:private
@@ -76,9 +76,7 @@ export const QuestionaryTemplateReady = UU5.Common.VisualComponent.create({
           <UU5.Bricks.Icon icon="uu5-arrow-left" /> Back
         </UU5.Bricks.Button>
 
-        <UU5.Bricks.AlertBus position="center" ref_={item => (this.alert2 = item)} colorSchema="success" closeTimer={5000} />
         <UU5.Bricks.Section header={name}></UU5.Bricks.Section>
-
         <UU5.Forms.TextButton
           label='Assign this test to user(uuId): '
           inputColWidth="s-3"

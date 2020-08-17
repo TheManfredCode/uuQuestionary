@@ -69,11 +69,18 @@ export const AnswersTile = UU5.Common.VisualComponent.create({
 
   //@@viewOn:render
   render() {
-    const {name, uuId, completed} = this.props.data;
+    const {name, uuId, completed, id, questionaryId} = this.props.data;
     return (
       <UU5.Bricks.Div {...this.getMainPropsToPass()}>
         
-        <UU5.BlockLayout.Block>
+        <UU5.BlockLayout.Block
+          actions={[
+            { icon: "mdi-radioactive", content: "GO", active: true, onClick: () => {
+                UU5.Environment.setRoute("/questionary", {id: id, questionaryId: questionaryId});
+              } 
+            }
+          ]}
+        >
           <UU5.BlockLayout.Row>Name : {name}</UU5.BlockLayout.Row>
           <UU5.BlockLayout.Row>UUID : {uuId}</UU5.BlockLayout.Row>
           <UU5.BlockLayout.Line/>

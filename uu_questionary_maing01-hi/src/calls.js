@@ -131,11 +131,25 @@ let Calls = {
       });
     });
   },
+  answerUpdate(dtoInData){
+    return new Promise((resolve, reject) => {
+      let commandUri = Calls.getCommandUri("answer/update");
+      Calls.call("post", commandUri, {
+        data: dtoInData,
+        done: data => resolve({ data}),
+        fail: reject
+      });
+    });
+  },
   answerList(){
     return new Promise((resolve, reject) => {
       let commandUri = Calls.getCommandUri("answer/list");
       Calls.call("get", commandUri, {done: resolve, fail: reject });
     });
+  },
+  answerGet(dtoInData) {
+    let commandUri = Calls.getCommandUri("answer/get");
+    return Calls.call("get", commandUri, dtoInData);
   },
 
 

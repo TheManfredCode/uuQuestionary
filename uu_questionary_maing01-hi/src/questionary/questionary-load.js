@@ -37,11 +37,13 @@ export const QuestionaryLoad = UU5.Common.VisualComponent.create({
   //@@viewOn:private
   _onSaveAnswers(opt) {
     let dtoIn = {
-      name: this.getIdentity().uuIdentity,
-      answers: opt
+      id: this.props.testId,
+      name: this.getIdentity().name,
+      answers: opt,
+      completed: true
     }
     console.log(dtoIn);
-    Calls.answerCreate(dtoIn).then(() => {
+    Calls.answerUpdate(dtoIn).then(() => {
       this.alert2.addAlert({ content: "Test is done!"})
     });
     
