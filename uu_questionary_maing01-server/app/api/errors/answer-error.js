@@ -57,6 +57,20 @@ const Update = {
       this.code = `${Update.UC_CODE}DAOUpdateFailed`;
       this.message = "Update DAO failed.";
     }
+  },
+  UuidIsNotCorrect: class extends QuestionaryMainUseCaseError {
+    constructor() {
+      super(...arguments);
+      this.code = `${Update.UC_CODE}DAOUpdateFailed`;
+      this.message = "You can't run this test.";
+    }
+  },
+  IsCompleted: class extends QuestionaryMainUseCaseError {
+    constructor() {
+      super(...arguments);
+      this.code = `${Update.UC_CODE}DAOUpdateFailed`;
+      this.message = "The test is already completed.";
+    }
   }
 };
 

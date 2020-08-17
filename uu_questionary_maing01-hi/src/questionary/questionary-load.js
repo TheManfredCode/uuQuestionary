@@ -39,6 +39,7 @@ export const QuestionaryLoad = UU5.Common.VisualComponent.create({
     let dtoIn = {
       id: this.props.testId,
       name: this.getIdentity().name,
+      uuId: this.getIdentity().uuIdentity,
       answers: opt,
       completed: true
     }

@@ -1,7 +1,7 @@
 "use strict";
 const Path = require("path");
 const { Validator } = require("uu_appg01_server").Validation;
-const { DaoFactory } = require("uu_appg01_server").ObjectStore;
+const { DaoFactory, ObjectStoreError } = require("uu_appg01_server").ObjectStore;
 const { ValidationHelper } = require("uu_appg01_server").AppServer;
 const Errors = require("../api/errors/answer-error.js");
 
@@ -68,9 +68,18 @@ class AnswerAbl {
     );
 
     let dtoOut;
+    let currentAnswer = await this.dao.get(awid, dtoIn.id);
     
     try {
-      
+      if (currentAnswer.completed) {
+        throw new Errors.Update.IsCompleted({uuAppErrorMap});
+      }
+      if (dtoIn.uuId) {
+        if (dtoIn.uuId != currentAnswer.uuId) {
+          throw new Errors.Update.UuidIsNotCorrect({uuAppErrorMap});
+        }
+        delete dtoIn.uuId;
+      }
       dtoOut = await this.dao.update(awid, dtoIn);
     } catch (e) {
       if (e instanceof ObjectStoreError) { // A3
