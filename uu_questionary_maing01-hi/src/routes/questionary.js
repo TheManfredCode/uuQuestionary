@@ -50,7 +50,20 @@ export const Questionary = UU5.Common.VisualComponent.create({
       });
     });
   },
-  
+  _loadAnswers() {
+    let dtoIn = this.props.params.id;
+    return new Promise((resolve, reject) => {
+      Calls.answerGet({
+        data: { id: dtoIn },
+        done: dtoOut =>
+          resolve(
+            dtoOut
+          ),
+        fail: response => reject(response)
+      });
+    });
+  },
+
   //@@viewOff:private
 
   //@@viewOn:render
@@ -59,16 +72,29 @@ export const Questionary = UU5.Common.VisualComponent.create({
       <UU5.Common.DataManager
         onLoad={this._loadQuestionary}
       >
-        {({ data: data }) => {
-          if (data) {
+        {({ data: questionaryData }) => {
+          if (questionaryData) {
             return (
-              <QuestionaryLoad data={data} testId={this.props.params.id}/>
+              <UU5.Common.DataManager
+                onLoad={this._loadAnswers}
+              >
+                {({ data: testData }) => {
+                  if (testData) {
+                    return (
+                      <QuestionaryLoad data={questionaryData} testData={testData} />
+                    );
+                  } else {
+                    return <UU5.Bricks.Loading />;
+                  }
+                }}
+              </UU5.Common.DataManager>
             );
           } else {
             return <UU5.Bricks.Loading />;
           }
         }}
       </UU5.Common.DataManager>
+
     </UU5.Bricks.Div>;
   }
   //@@viewOff:render

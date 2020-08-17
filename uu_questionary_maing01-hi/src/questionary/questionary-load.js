@@ -37,7 +37,7 @@ export const QuestionaryLoad = UU5.Common.VisualComponent.create({
   //@@viewOn:private
   _onSaveAnswers(opt) {
     let dtoIn = {
-      id: this.props.testId,
+      id: this.props.testData.id,
       name: this.getIdentity().name,
       uuId: this.getIdentity().uuIdentity,
       answers: opt,
@@ -89,9 +89,9 @@ export const QuestionaryLoad = UU5.Common.VisualComponent.create({
         <UU5.Forms.Radios
           key={keyId}
           name={questionsArr[i].name.replace(/ /g, "-")}
-          
           size="m"
           value={this._loadAnswers(questionsArr[i].answers, questionsArr[i].name)}
+          required
         />
         <UU5.Forms.Text
           key={keyId}
@@ -112,6 +112,7 @@ export const QuestionaryLoad = UU5.Common.VisualComponent.create({
 
   //@@viewOn:render
   render() {
+    const { uuId } = this.props.testData;
     const { name, questions} = this.props.data;
     return <UU5.Bricks.Div {...this.getMainPropsToPass()}>
       <UU5.Bricks.AlertBus position="center" ref_={item => (this.alert2 = item)} colorSchema="success" closeTimer={5000}/>
@@ -121,7 +122,14 @@ export const QuestionaryLoad = UU5.Common.VisualComponent.create({
         onSave={(opt) => this._onSaveAnswers(opt.values)}
       >
         {this._loadQuestions(questions)}
-        <UU5.Forms.Controls />
+        <>
+          {uuId == this.getIdentity().uuIdentity ? (
+            <UU5.Forms.Controls />
+          ) : (
+            <UU5.Bricks.Div style="color: red; text-align: center">You can't run this test</UU5.Bricks.Div>
+          )
+          }
+        </>
       </UU5.Forms.Form>
     </UU5.Bricks.Div>;
   }
