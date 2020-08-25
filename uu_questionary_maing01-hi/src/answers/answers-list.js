@@ -1,6 +1,7 @@
 //@@viewOn:imports
 import * as UU5 from "uu5g04";
 import "uu5g04-bricks";
+import "uu5tilesg01";
 import Config from "./config/config.js";
 import AnswersTile from "./answers-tile.js";
 //@@viewOff:imports
@@ -35,6 +36,26 @@ export const AnswersList = UU5.Common.VisualComponent.create({
   //@@viewOff:overriding
 
   //@@viewOn:private
+  _getFilters() {
+    return [
+      {
+        key: "completed",
+        label: {en: "completed state"},
+        filterFn: (item, value) => {
+          let fragments = value;
+          if (item.completed && value === "a"){
+            return item;
+          } else if (!item.completed && value === "b") {
+            return item;
+          }
+          // return (
+          //   fragments.some(frag => this.getLsiItem(item.completed).toLowerCase().indexOf(frag.toLowerCase()) !== -1)
+          // );
+        }
+      }
+    ]
+  },
+
   _getTile(tileData) {
     return <AnswersTile data={tileData}/>
   },
@@ -45,6 +66,19 @@ export const AnswersList = UU5.Common.VisualComponent.create({
     return (
       <UU5.Bricks.Div {...this.getMainPropsToPass()}>
         <UU5.Tiles.ListController data={this.props.data} selectable={false} autoResize={true}>
+          <UU5.Tiles.FilterBar
+            simpleFilterPanel
+            filters={this._getFilters()}
+          >
+            <UU5.Forms.Form>
+              <UU5.Forms.Select
+                name="value"
+              >
+                <UU5.Forms.Select.Option value="Completed"/>
+                <UU5.Forms.Select.Option value="Not_completed"/>
+              </UU5.Forms.Select>
+            </UU5.Forms.Form>
+          </UU5.Tiles.FilterBar>
           <UU5.Tiles.List
             tile={this._getTile}
             tileHeight={200}
