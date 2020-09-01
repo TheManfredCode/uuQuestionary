@@ -4,6 +4,7 @@ import "uu5g04-bricks";
 import "uu5tilesg01";
 import Config from "./config/config.js";
 import AnswersTile from "./answers-tile.js";
+import Filter from "./filter-select.js";
 //@@viewOff:imports
 
 export const AnswersList = UU5.Common.VisualComponent.create({
@@ -67,17 +68,10 @@ export const AnswersList = UU5.Common.VisualComponent.create({
       <UU5.Bricks.Div {...this.getMainPropsToPass()}>
         <UU5.Tiles.ListController data={this.props.data} selectable={false} autoResize={true}>
           <UU5.Tiles.FilterBar
-            simpleFilterPanel
+            // simpleFilterPanel
             filters={this._getFilters()}
           >
-            <UU5.Forms.Form>
-              <UU5.Forms.Select
-                name="value"
-              >
-                <UU5.Forms.Select.Option value="Completed"/>
-                <UU5.Forms.Select.Option value="Not_completed"/>
-              </UU5.Forms.Select>
-            </UU5.Forms.Form>
+            <Filter/>
           </UU5.Tiles.FilterBar>
           <UU5.Tiles.List
             tile={this._getTile}

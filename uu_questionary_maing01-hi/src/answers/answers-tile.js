@@ -72,6 +72,13 @@ export const AnswersTile = UU5.Common.VisualComponent.create({
       UU5.Environment.setRoute("/questionary", {id: testValues.id, questionaryId: testValues.questionaryId});
     }
   },
+  _test() {
+    var copyText = document.getElementById("myInput");
+  copyText.select();
+  copyText.setSelectionRange(0, 99999)
+  document.execCommand("copy");
+  alert("Copied the text: " + copyText.value);
+  },
   //@@viewOff:private
 
   //@@viewOn:render
@@ -84,6 +91,10 @@ export const AnswersTile = UU5.Common.VisualComponent.create({
           actions={[
             { icon: "mdi-radioactive", content: "GO", active: true, onClick: () => {
                 this._getAction(this.props.data);
+              } 
+            },
+            { icon: "mdi-account-minus", content: "copy", active: true, onClick: () => {
+                this._test();
               } 
             }
           ]}
