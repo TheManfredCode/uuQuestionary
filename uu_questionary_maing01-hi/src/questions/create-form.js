@@ -31,10 +31,10 @@ export const CreateForm = UU5.Common.VisualComponent.create({
   getInitialState() {
     return {
       answers: [],
+
       values: [],
-      test: "",
       value1: "",
-      testform: this.props.test,
+
       nameValue: ""
     };
   },
@@ -67,6 +67,34 @@ export const CreateForm = UU5.Common.VisualComponent.create({
     });
     this.setState({ answers: newAnswers });
   },
+  /////ooooo
+  _addInputForAnswerAlt() {
+    this.setState({
+      testForm: (
+        <UU5.Forms.TextButton
+          label='Search'
+          onChange={opt => {
+            this.setState({
+              value1: opt.value
+            });
+          }}
+          value={this.state.value1}
+          feedback={this.state.value1.length < 5 ? 'error' : 'success'}
+          message={this.state.value1.length < 5 ?
+            'Value has less than 5 characters.' :
+            'Value has more than 5 characters.'
+          }
+          buttons={[{
+            icon: 'mdi-magnify',
+            onClick: (opt) => alert('User ' + opt.value + ' is not in database'),
+            colorSchema: 'info'
+          }]}
+        />
+      )
+    })
+
+  },
+  /////
   _addInputForAnswer() {
     let exists = this.state.answers;
     console.log(exists);
@@ -85,7 +113,7 @@ export const CreateForm = UU5.Common.VisualComponent.create({
         //     if (values[key].name == keyId) {
         //       values[key].value = opt.value;
         //       test = opt.value;
-              
+
         //     }
         //   }
 
@@ -104,7 +132,7 @@ export const CreateForm = UU5.Common.VisualComponent.create({
         // }}
         // value={this.state.value1}
         placeholder="Answer option"
-        
+
         size="m"
         buttons={[
           {
@@ -127,6 +155,13 @@ export const CreateForm = UU5.Common.VisualComponent.create({
       values: existValues
     });
   },
+  /////oooo
+
+  _addAnswersByNum(n) {
+    for (i = 0; i < n; i++) {
+      this._addInputForAnswer()
+    }
+  },
 
   _getChildren() {
     return (
@@ -140,22 +175,36 @@ export const CreateForm = UU5.Common.VisualComponent.create({
           required
         />
 
-        <UU5.BlockLayout.Block
-          actions={[
+        <UU5.Forms.TextButton
+          label="Enter answers number : "
+          size="m"
+          buttons={[
             {
               icon: "mdi-plus",
-              content: "Add",
-              active: true,
-              onClick: () => this._addInputForAnswer()
+              onClick: (opt) => {
+                for (let i = 0; i < opt.value; i++) {
+                  this._addInputForAnswer()
+                }
+              },
+              colorSchema: "info"
             }
           ]}
+        />
+
+        <UU5.BlockLayout.Block
+          // actions={[
+          //   {
+          //     icon: "mdi-plus",
+          //     content: "Add",
+          //     active: true,
+          //     onClick: () => this._addInputForAnswer()
+          //   }
+          // ]}
         >
-          <UU5.BlockLayout.Row className="row">Options list</UU5.BlockLayout.Row>
           <UU5.BlockLayout.Line />
         </UU5.BlockLayout.Block>
 
         {this.state.answers}
-        
       </UU5.Bricks.Div>
     );
   },
