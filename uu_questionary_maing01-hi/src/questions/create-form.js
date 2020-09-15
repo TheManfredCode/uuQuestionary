@@ -110,6 +110,7 @@ export const CreateForm = UU5.Common.VisualComponent.create({
         />
 
         <UU5.Forms.TextButton
+          name="answersCount"
           label="Enter answers number : "
           size="m"
           buttons={[

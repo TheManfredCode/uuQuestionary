@@ -74,10 +74,11 @@ export const DetailReady = UU5.Common.VisualComponent.create({
       answers: []
     };
     Object.keys(opt).forEach(key => {
-      if (key !== "name") {
+      if (key !== "name" && key !== "answersCount") {
         newQuestion.answers.push(opt[key]);
       }
     });
+    console.log(opt);
     console.table(newQuestion);
 
     Calls.categoryAddQuestion(this.props.data.id, newQuestion);
@@ -93,27 +94,6 @@ export const DetailReady = UU5.Common.VisualComponent.create({
     })
   },
 
-  _test() {
-    return (
-      <UU5.Forms.TextButton
-        label='Search'
-        onChange={opt => {
-          this.setState({
-            value1: opt.value
-          });
-          console.log("On change : " + this.state.value1);
-        }}
-        value={this.state.value1}
-        
-        buttons={[{
-          icon: 'mdi-magnify',
-          onClick: (opt) => alert('User ' + opt.value + ' is not in database'),
-          colorSchema: 'info'
-        }]}
-      />
-    );
-  },
-
   _getActions() {
     return [
       {
@@ -124,7 +104,7 @@ export const DetailReady = UU5.Common.VisualComponent.create({
           console.log("Add question");
           this._modal.open({
             header: this.getLsiComponent("createQuestionHeader"),
-            content: <CreateForm test={this._test}/>,
+            content: <CreateForm/>,
             onSave: this._handleOnSaveQuestion,
             controls: {
               buttonSubmitProps: {

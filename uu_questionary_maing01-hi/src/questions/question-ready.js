@@ -3,7 +3,6 @@ import * as UU5 from "uu5g04";
 import "uu5g04-bricks";
 import "uu5tilesg01";
 import Config from "./config/config.js";
-import QuestionAnswer from "./question-answer.js";
 //@@viewOff:imports
 
 export const QuestionReady = UU5.Common.VisualComponent.create({
