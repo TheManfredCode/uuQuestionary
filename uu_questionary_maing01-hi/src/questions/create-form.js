@@ -31,10 +31,6 @@ export const CreateForm = UU5.Common.VisualComponent.create({
   getInitialState() {
     return {
       answers: [],
-
-      values: [],
-      value1: "",
-
       nameValue: ""
     };
   },
@@ -67,97 +63,36 @@ export const CreateForm = UU5.Common.VisualComponent.create({
     });
     this.setState({ answers: newAnswers });
   },
-  /////ooooo
-  _addInputForAnswerAlt() {
-    this.setState({
-      testForm: (
-        <UU5.Forms.TextButton
-          label='Search'
-          onChange={opt => {
-            this.setState({
-              value1: opt.value
-            });
-          }}
-          value={this.state.value1}
-          feedback={this.state.value1.length < 5 ? 'error' : 'success'}
-          message={this.state.value1.length < 5 ?
-            'Value has less than 5 characters.' :
-            'Value has more than 5 characters.'
-          }
-          buttons={[{
-            icon: 'mdi-magnify',
-            onClick: (opt) => alert('User ' + opt.value + ' is not in database'),
-            colorSchema: 'info'
-          }]}
-        />
-      )
-    })
-
-  },
-  /////
+  
   _addInputForAnswer() {
     let exists = this.state.answers;
     console.log(exists);
-    let existValues = this.state.values;
-    console.log(existValues);
     let keyId = UU5.Common.Tools.generateUUID();
     let newOne = (
-      <UU5.Forms.TextButton
+      <UU5.Forms.Text
         key={keyId}
         id={keyId}
-        // onChange={opt => {
-        //   let values = this.state.values;
-        //   let answers = this.state.answers;
-        //   let test = this.state.test;
-        //   for (let key in values) {
-        //     if (values[key].name == keyId) {
-        //       values[key].value = opt.value;
-        //       test = opt.value;
-
-        //     }
-        //   }
-
-        //   this.setState({
-        //     test: test,
-        //     answers: answers
-        //   });
-
-        // }}
-        // value={this.state.test}
-        // onChange={opt => {
-        //   this.setState({
-        //     value1: opt.value
-        //   });
-        //   console.log("On change : " + this.state.value1);
-        // }}
-        // value={this.state.value1}
         placeholder="Answer option"
-
         size="m"
-        buttons={[
-          {
-            icon: "mdi-minus",
-            onClick: opt => this._removeInputForAnswer(keyId),
-            colorSchema: "info"
-          }
-        ]}
+        // buttons={[
+        //   {
+        //     icon: "mdi-minus",
+        //     onClick: opt => this._removeInputForAnswer(keyId),
+        //     colorSchema: "info"
+        //   }
+        // ]}
       />
     );
     exists.push(newOne);
-    existValues.push(
-      {
-        name: keyId,
-        value: ""
-      }
-    )
     this.setState({
       answers: exists,
-      values: existValues
     });
   },
-  /////oooo
 
   _addAnswersByNum(n) {
+    this.setState ({
+      answers: [],
+    });
     for (i = 0; i < n; i++) {
       this._addInputForAnswer()
     }
@@ -171,7 +106,6 @@ export const CreateForm = UU5.Common.VisualComponent.create({
           name="name"
           label={this.getLsiComponent("questionName")}
           value={this.state.nameValue}
-
           required
         />
 
