@@ -53,13 +53,16 @@ export const QuestionaryLoad = UU5.Common.VisualComponent.create({
   _loadAnswers(answers, question) {
 
     let radioAnswers = [];
-    let textFormName = question.replace(/ /g, "-") + "-owntxt";
+    let textFormName = question.name.replace(/ /g, "-") + "-owntxt";
     let keyId = UU5.Common.Tools.generateUUID();
 
     for (var i in answers) {
       radioAnswers.push({ label: answers[i], name: answers[i].replace(/ /g, "-") });
     }
-    radioAnswers.push({ label: "own", name: (question.replace(/ /g, "-") + "-own") })
+    if (question.own) {
+      radioAnswers.push({ label: "own", name: (question.name.replace(/ /g, "-") + "-own") })
+    }
+    
     // radioAnswers.push({ 
     //   label: (
     //     <UU5.Forms.Text
@@ -90,17 +93,23 @@ export const QuestionaryLoad = UU5.Common.VisualComponent.create({
           key={keyId}
           name={questionsArr[i].name.replace(/ /g, "-")}
           size="m"
-          value={this._loadAnswers(questionsArr[i].answers, questionsArr[i].name)}
+          value={this._loadAnswers(questionsArr[i].answers, questionsArr[i])}
           required
         />
-        <UU5.Forms.Text
+        {questionsArr[i].own == true ? (
+          <UU5.Forms.Text
           key={keyId}
           name={textFormName}
           inputWidth="400px"
           placeholder="I'm busy. I'm eating ice cream"
           size="s"
         />
+        ) : (
+          <></>
+        )}
+        
       </UU5.Bricks.Div>);
+      console.log(questionsArr[i].own)
     }
 
     return getQuestionsForm.map(el => {

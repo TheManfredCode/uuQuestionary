@@ -108,7 +108,11 @@ export const CreateForm = UU5.Common.VisualComponent.create({
           value={this.state.nameValue}
           required
         />
-
+        <UU5.Forms.Checkbox
+          name="own"
+          label="Own answer : "
+          value={true}
+        />
         <UU5.Forms.TextButton
           name="answersCount"
           label="Enter answers number : "

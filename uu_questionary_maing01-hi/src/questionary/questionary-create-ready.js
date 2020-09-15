@@ -56,7 +56,6 @@ export const QuestionaryCreateReady = UU5.Common.VisualComponent.create({
   _handleQuestionarySave (opt, categories) {
     let questionsArr = [];
     for (var key in opt.values){
-      console.log(key);
       for(var i in categories) {
         for(var el in categories[i].questions){
           if(categories[i].questions[el].name.replace(/ /g, "-") == key){
@@ -68,10 +67,11 @@ export const QuestionaryCreateReady = UU5.Common.VisualComponent.create({
       }
     }
     console.log(questionsArr);
-    console.log(opt.values.name);
+    console.log(opt.values);
     let dtoIn = {
       name: opt.values.name,
-      questions: questionsArr
+      questions: questionsArr,
+
     }
     Calls.questionaryCreate(dtoIn);
     UU5.Environment.setRoute("questionaries");
