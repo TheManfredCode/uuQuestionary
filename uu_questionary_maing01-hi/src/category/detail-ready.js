@@ -72,10 +72,11 @@ export const DetailReady = UU5.Common.VisualComponent.create({
     let newQuestion = {
       name: opt.name,
       answers: [],
-      own: opt.own
+      own: opt.own,
+      required: opt.required
     };
     Object.keys(opt).forEach(key => {
-      if (key !== "name" && key !== "answersCount" && key !== "own") {
+      if (key !== "name" && key !== "answersCount" && key !== "own" && key !== "required") {
         newQuestion.answers.push(opt[key]);
       }
     });

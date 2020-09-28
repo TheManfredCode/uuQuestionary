@@ -41,16 +41,21 @@ export const QuestionaryTemplateReady = UU5.Common.VisualComponent.create({
       getQuestions.push(
         <UU5.Bricks.Div>
           <UU5.Bricks.Section header={questions[key].name}></UU5.Bricks.Section>
-          {this._loadAnswers(questions[key].answers)}
+          {this._loadAnswers(questions[key].answers, questions[key].own)}
         </UU5.Bricks.Div>
       );
     }
     return getQuestions;
   },
-  _loadAnswers(answers) {
+  _loadAnswers(answers, own) {
     let children = answers.map(element => {
       return <UU5.Bricks.Li key={UU5.Common.Tools.generateUUID()} content={element} />;
     });
+    if (own) {
+      children.push(
+        <UU5.Bricks.Li key={UU5.Common.Tools.generateUUID()} content="own" />
+      )
+    }
 
     return <UU5.Bricks.Ul>{children}</UU5.Bricks.Ul>;
   },
@@ -69,7 +74,7 @@ export const QuestionaryTemplateReady = UU5.Common.VisualComponent.create({
   render() {
     const { name, questions } = this.props.data;
     return (
-      <UU5.Bricks.Div {...this.getMainPropsToPass()}>
+      <UU5.Bricks.Div {...this.getMainPropsToPass()} style="padding: 30px">
         <UU5.Bricks.Button
           onClick={() => UU5.Environment.setRoute("questionaries")}
         >

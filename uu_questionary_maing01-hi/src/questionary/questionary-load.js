@@ -53,8 +53,6 @@ export const QuestionaryLoad = UU5.Common.VisualComponent.create({
   _loadAnswers(answers, question) {
 
     let radioAnswers = [];
-    let textFormName = question.name.replace(/ /g, "-") + "-owntxt";
-    let keyId = UU5.Common.Tools.generateUUID();
 
     for (var i in answers) {
       radioAnswers.push({ label: answers[i], name: answers[i].replace(/ /g, "-") });
@@ -63,22 +61,31 @@ export const QuestionaryLoad = UU5.Common.VisualComponent.create({
       radioAnswers.push({ label: "own", name: (question.name.replace(/ /g, "-") + "-own") })
     }
     
-    // radioAnswers.push({ 
-    //   label: (
-    //     <UU5.Forms.Text
-    //       key={keyId}
-    //       name={textFormName}
-    //       label=""
-    //       placeholder="I'm busy. I'm eating ice cream"
-    //       size="s"
-    //     />
-    //   ), 
-    //   name: (question.replace(/ /g, "-") + "-own") 
-    // })
-
     return radioAnswers;
   },
   
+  _isRequired(required){
+    let radios;
+    required == true ? (
+      radios = (
+        <UU5.Forms.Radios
+          key={keyId}
+          name={questionsArr[i].name.replace(/ /g, "-")}
+          size="m"
+          value={this._loadAnswers(questionsArr[i].answers, questionsArr[i])}
+          required
+        />
+      )
+    ) : (
+      radios = (<UU5.Forms.Radios
+        key={keyId}
+        name={questionsArr[i].name.replace(/ /g, "-")}
+        size="m"
+        value={this._loadAnswers(questionsArr[i].answers, questionsArr[i])}
+      />)
+    )
+  },
+
   _loadQuestions(questionsArr) {
     let getQuestionsForm = [];
 
@@ -88,22 +95,33 @@ export const QuestionaryLoad = UU5.Common.VisualComponent.create({
 
       getQuestionsForm.push(<UU5.Bricks.Div>
         <UU5.Bricks.Section header={questionsArr[i].name}></UU5.Bricks.Section>
-        <UU5.Bricks.Div>  </UU5.Bricks.Div>
-        <UU5.Forms.Radios
-          key={keyId}
-          name={questionsArr[i].name.replace(/ /g, "-")}
-          size="m"
-          value={this._loadAnswers(questionsArr[i].answers, questionsArr[i])}
-          required
-        />
+        <UU5.Bricks.Div>
+          {questionsArr[i].required == true ? (
+            <UU5.Forms.Radios
+              key={keyId}
+              name={questionsArr[i].name.replace(/ /g, "-")}
+              size="m"
+              value={this._loadAnswers(questionsArr[i].answers, questionsArr[i])}
+              required
+            />
+          ) : (
+            <UU5.Forms.Radios
+              key={keyId}
+              name={questionsArr[i].name.replace(/ /g, "-")}
+              size="m"
+              value={this._loadAnswers(questionsArr[i].answers, questionsArr[i])}
+            />
+          )}
+        </UU5.Bricks.Div>
+        
         {questionsArr[i].own == true ? (
           <UU5.Forms.Text
-          key={keyId}
-          name={textFormName}
-          inputWidth="400px"
-          placeholder="I'm busy. I'm eating ice cream"
-          size="s"
-        />
+            key={keyId}
+            name={textFormName}
+            inputWidth="400px"
+            placeholder="I'm busy. I'm eating ice cream"
+            size="s"
+          />
         ) : (
           <></>
         )}
@@ -123,23 +141,26 @@ export const QuestionaryLoad = UU5.Common.VisualComponent.create({
   render() {
     const { uuId } = this.props.testData;
     const { name, questions} = this.props.data;
-    return <UU5.Bricks.Div {...this.getMainPropsToPass()}>
+    return <UU5.Bricks.Div {...this.getMainPropsToPass()} style="padding: 30px">
       <UU5.Bricks.AlertBus position="center" ref_={item => (this.alert2 = item)} colorSchema="success" closeTimer={5000}/>
       <UU5.Bricks.Section header={name}></UU5.Bricks.Section>
-      <UU5.Forms.Form
-        //onSave={(opt) => alert(`opt.values:\n${JSON.stringify(opt.values, null, 2)}`)}
-        onSave={(opt) => this._onSaveAnswers(opt.values)}
-      >
-        {this._loadQuestions(questions)}
-        <>
-          {uuId == this.getIdentity().uuIdentity ? (
-            <UU5.Forms.Controls />
-          ) : (
-            <UU5.Bricks.Div style="color: red; text-align: center">You can't run this test</UU5.Bricks.Div>
-          )
-          }
-        </>
-      </UU5.Forms.Form>
+      {uuId == this.getIdentity().uuIdentity ? (
+        <UU5.Forms.Form
+          onSave={(opt) => this._onSaveAnswers(opt.values)}
+        >
+          {this._loadQuestions(questions)}
+          <UU5.Forms.Controls buttonCancelProps = {false}/>
+        </UU5.Forms.Form>
+      ) : (
+        <UU5.Forms.Form
+          onSave={(opt) => this._onSaveAnswers(opt.values)}
+        >
+          {this._loadQuestions(questions)}
+          <UU5.Bricks.Div style="color: red; text-align: center">You can't run this test</UU5.Bricks.Div>
+        </UU5.Forms.Form>
+      )
+      }
+      
     </UU5.Bricks.Div>;
   }
   //@@viewOff:render

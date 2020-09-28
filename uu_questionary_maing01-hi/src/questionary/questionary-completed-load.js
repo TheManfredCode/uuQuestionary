@@ -44,22 +44,27 @@ export const QuestionaryCompletedLoad = UU5.Common.VisualComponent.create({
     return value;
   },
 
-  _loadAnswers(answers, question, answersValues) {
+  _loadAnswers(answers, question, own, answersValues) {
     let radioAnswers = [];
 
     for (var i in answers) {
       let answer;
       for (var key in answersValues){
-        if (answersValues[key].replace(/ /g, "-") === answers[i].replace(/ /g, "-")) {
-          answer = { label: answers[i], name: answers[i].replace(/ /g, "-"), value: true };
-          break;
+        if (answersValues[key]) {
+          if (answersValues[key].replace(/ /g, "-") === answers[i].replace(/ /g, "-")) {
+            answer = { label: answers[i], name: answers[i].replace(/ /g, "-"), value: true };
+            break;
+          } else {
+            answer = { label: answers[i], name: answers[i].replace(/ /g, "-")};
+          }
         } else {
           answer = { label: answers[i], name: answers[i].replace(/ /g, "-")};
         }
+        
       }
       radioAnswers.push(answer);
     }
-    radioAnswers.push({ label: "own", name: (question.replace(/ /g, "-") + "-own") })
+    if (own) radioAnswers.push({ label: "own", name: (question.replace(/ /g, "-") + "-own") })
 
     return radioAnswers;
   },
@@ -69,7 +74,9 @@ export const QuestionaryCompletedLoad = UU5.Common.VisualComponent.create({
 
     for (let i = 0; i < questionsArr.length; i++) {
       let textFormName = questionsArr[i].name + "-own";
+      let own = false;
       let keyId = UU5.Common.Tools.generateUUID();
+      if (questionsArr[i].own) own = true;
 
       getQuestionsForm.push(<UU5.Bricks.Div>
         <UU5.Bricks.Section header={questionsArr[i].name}></UU5.Bricks.Section>
@@ -79,18 +86,25 @@ export const QuestionaryCompletedLoad = UU5.Common.VisualComponent.create({
           name={questionsArr[i].name.replace(/ /g, "-")}
           
           size="m"
-          value={this._loadAnswers(questionsArr[i].answers, questionsArr[i].name, answersValues)}
+          value={this._loadAnswers(questionsArr[i].answers, questionsArr[i].name, own, answersValues)}
           readOnly
         />
-        <UU5.Forms.Text
-          key={keyId}
-          name={textFormName}
-          value={this._getOwnAnswerValue(textFormName, answersValues)}
-          inputWidth="400px"
-          placeholder="I'm busy. I'm eating ice cream"
-          size="s"
-          readOnly
-        />
+        
+        {own ? (
+          <UU5.Forms.Text
+            key={keyId}
+            name={textFormName}
+            value={this._getOwnAnswerValue(textFormName, answersValues)}
+            inputWidth="400px"
+            placeholder="I'm busy. I'm eating ice cream"
+            size="s"
+            readOnly
+          />
+          ) : (
+            <></>
+          )
+        }
+        
       </UU5.Bricks.Div>);
     }
 
@@ -105,7 +119,7 @@ export const QuestionaryCompletedLoad = UU5.Common.VisualComponent.create({
     const { name, questions} = this.props.questionaryData;
     const {answers} = this.props.testData;
     return (
-      <UU5.Bricks.Div {...this.getMainPropsToPass()}>
+      <UU5.Bricks.Div {...this.getMainPropsToPass()} style="padding: 30px">
         <UU5.Bricks.Section header={name}></UU5.Bricks.Section>
         <UU5.Forms.Form>
           {this._loadQuestions(questions, answers)}

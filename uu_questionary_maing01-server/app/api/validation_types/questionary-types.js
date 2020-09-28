@@ -4,7 +4,8 @@ const questionaryCreateDtoInType = shape({
     questions: array(shape({
         name: string(),
         answers: array(),
-        own: boolean()
+        own: boolean(),
+        required: boolean()
     }))
 });
 

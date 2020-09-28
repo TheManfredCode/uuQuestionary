@@ -104,6 +104,11 @@ export const CreateForm = UU5.Common.VisualComponent.create({
         <UU5.Forms.Text
           inputAttrs={{ maxLength: 255 }}
           name="name"
+          onChange={opt => {
+            this.setState({
+              nameValue: opt.value
+            });
+          }}
           label={this.getLsiComponent("questionName")}
           value={this.state.nameValue}
           required
@@ -111,6 +116,11 @@ export const CreateForm = UU5.Common.VisualComponent.create({
         <UU5.Forms.Checkbox
           name="own"
           label="Own answer : "
+          value={false}
+        />
+        <UU5.Forms.Checkbox
+          name="required"
+          label="Is required? : "
           value={true}
         />
         <UU5.Forms.TextButton
@@ -121,6 +131,9 @@ export const CreateForm = UU5.Common.VisualComponent.create({
             {
               icon: "mdi-plus",
               onClick: (opt) => {
+                this.setState({
+                  answers: []
+                })
                 for (let i = 0; i < opt.value; i++) {
                   this._addInputForAnswer()
                 }
@@ -130,16 +143,7 @@ export const CreateForm = UU5.Common.VisualComponent.create({
           ]}
         />
 
-        <UU5.BlockLayout.Block
-          // actions={[
-          //   {
-          //     icon: "mdi-plus",
-          //     content: "Add",
-          //     active: true,
-          //     onClick: () => this._addInputForAnswer()
-          //   }
-          // ]}
-        >
+        <UU5.BlockLayout.Block>
           <UU5.BlockLayout.Line />
         </UU5.BlockLayout.Block>
 

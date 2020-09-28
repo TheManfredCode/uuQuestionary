@@ -22,7 +22,8 @@ const categoryAddQuestionDtoInType = shape({
     questions: shape({
         name: string(255),
         answers: array(),
-        own: boolean()
+        own: boolean(),
+        required: boolean() 
     })
 });
 

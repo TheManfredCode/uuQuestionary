@@ -51,10 +51,11 @@ export const QuestionTile = UU5.Common.VisualComponent.create({
     this._modal = cmp;
   },
 
-  _getAnswersList(answers) {
+  _getAnswersList(answers, own) {
     let children = answers.map(element => {
       return <UU5.Bricks.Li key={UU5.Common.Tools.generateUUID()} content={element} />;
     });
+    if (own) children.push(<UU5.Bricks.Li key={UU5.Common.Tools.generateUUID()} content="own" />)
 
     return <UU5.Bricks.Ul>{children}</UU5.Bricks.Ul>;
   },
@@ -75,7 +76,7 @@ export const QuestionTile = UU5.Common.VisualComponent.create({
   },
 
   _getChild() {
-    let { name, answers } = this.props.data;
+    let { name, answers, own } = this.props.data;
     return (
       <UU5.BlockLayout.Block
         actions={[
@@ -120,7 +121,7 @@ export const QuestionTile = UU5.Common.VisualComponent.create({
       >
         <UU5.BlockLayout.Row className="row">{name}</UU5.BlockLayout.Row>
         <UU5.BlockLayout.Line />
-        {this._getAnswersList(answers)}
+        {this._getAnswersList(answers, own)}
         <FormModal ref_={this._createModal} />
       </UU5.BlockLayout.Block>
     );
